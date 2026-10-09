@@ -8,3 +8,9 @@ docker-compose.yml
 *.log
 .DS_Store
 Thumbs.db
+server.js
+db.js
+school.db
+*.db
+*.sqlite
+DEPLOYMENT.md
