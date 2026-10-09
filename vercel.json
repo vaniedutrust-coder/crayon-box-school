@@ -7,6 +7,8 @@
     { "source": "/db.js", "destination": "/404.html" },
     { "source": "/package.json", "destination": "/404.html" },
     { "source": "/DEPLOYMENT.md", "destination": "/404.html" },
+    { "source": "/api/_lib/(.*)", "destination": "/404.html" },
+    { "source": "/_lib/(.*)", "destination": "/404.html" },
     { "source": "/uploads/resumes/:path*", "destination": "/api" },
     { "source": "/backups/:path*", "destination": "/api" },
     { "source": "/api/(.*)", "destination": "/api" }
