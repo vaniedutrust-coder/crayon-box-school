@@ -1,0 +1,15 @@
+node_modules
+scratch
+archive_artifacts
+*.log
+.DS_Store
+.git
+.gitignore
+.env
+*.png
+!cb-logo-circular.png
+!cb logo.png
+server.py
+vaani-mascot.js
+vaani.avatar.json
+avatar-web.bundle.js

@@ -1,0 +1,24 @@
+{
+  "name": "crayon-box-school",
+  "version": "1.0.0",
+  "description": "Official High-Performance Website & Administrative Platform for Crayon Box School",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node scratch/final_production_audit.js"
+  },
+  "keywords": [
+    "school",
+    "education",
+    "cbse",
+    "crayon-box-school"
+  ],
+  "author": "Crayon Box School Technical Desk",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

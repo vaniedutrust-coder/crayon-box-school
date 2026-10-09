@@ -1,0 +1,10 @@
+scratch
+archive_artifacts
+Dockerfile
+docker-compose.yml
+.git
+.gitignore
+.env*
+*.log
+.DS_Store
+Thumbs.db

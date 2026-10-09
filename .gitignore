@@ -1,0 +1,32 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Vercel & IDE
+.vercel/
+.vscode/
+.idea/
+
+# Database & Journals
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+
+# Test & Debug Screenshots
+*.png
+!cb-logo-circular.png
+!cb logo.png
+
+# Temporary Scratch Files
+scratch/
+archive_artifacts/
+*.log

@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrative Portal &amp; Inquiries Hub | Crayon Box School</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="cb-logo-circular.png">
+
+  <!-- Google Fonts: Fraunces + Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=3.0">
+
+  <style>
+    /* Dedicated Admin Portal Styling */
+    .admin-body {
+      background-color: #F8F6F0;
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .admin-header {
+      background: var(--navy);
+      color: #FFFFFF;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(6, 36, 76, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+
+    .admin-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .admin-brand h1 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .admin-brand span {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .admin-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .admin-user-pill {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-nav-tabs {
+      background: #FFFFFF;
+      border-bottom: 1px solid rgba(6, 36, 76, 0.1);
+      padding: 0 24px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      padding: 16px 18px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .admin-tab-btn:hover {
+      color: var(--navy);
+    }
+
+    .admin-tab-btn.active {
+      color: var(--navy);
+      border-bottom-color: var(--gold);
+      font-weight: 700;
+    }
+
+    .admin-container {
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(6, 36, 76, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      box-shadow: 0 4px 16px rgba(6, 36, 76, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .kpi-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .kpi-blue { background: #E3F2FD; color: #1565C0; }
+    .kpi-gold { background: #FFF8E1; color: #B78103; }
+    .kpi-green { background: #E8F5E9; color: #2E7D32; }
+    .kpi-purple { background: #F3E5F5; color: #7B1FA2; }
+
+    .kpi-value {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .kpi-label {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .admin-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(6, 36, 76, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(6, 36, 76, 0.04);
+      margin-bottom: 30px;
+    }
+
+    .admin-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(6, 36, 76, 0.08);
+    }
+
+    .admin-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-filter-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .admin-search-input,
+    .admin-select {
+      padding: 8px 14px;
+      border: 1px solid rgba(6, 36, 76, 0.15);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      color: var(--text-main);
+      background: #FFFFFF;
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .admin-table th {
+      background: #FDFBF7;
+      padding: 14px 16px;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: 2px solid rgba(6, 36, 76, 0.1);
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(6, 36, 76, 0.06);
+      vertical-align: middle;
+    }
+
+    .admin-table tr:hover td {
+      background: #FAF8F2;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .status-PENDING { background: #FFF3E0; color: #E65100; }
+    .status-REVIEWED { background: #E1F5FE; color: #0288D1; }
+    .status-INTERVIEW_SCHEDULED { background: #EDE7F6; color: #512DA8; }
+    .status-ADMITTED, .status-HIRED, .status-COMPLETED { background: #E8F5E9; color: #2E7D32; }
+    .status-SHORTLISTED { background: #E0F2F1; color: #00796B; }
+    .status-NEW, .status-CONFIRMED, .status-UNREAD { background: #FFF8E1; color: #F57F17; }
+
+    .action-btn {
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(6, 36, 76, 0.2);
+      background: #FFFFFF;
+      color: var(--navy);
+      cursor: pointer;
+      font-weight: 600;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--navy);
+      color: #FFFFFF;
+      border-color: var(--navy);
+    }
+
+    .action-btn.primary {
+      background: var(--navy);
+      color: #FFFFFF;
+      border-color: var(--navy);
+    }
+
+    .action-btn.primary:hover {
+      background: var(--navy-light);
+    }
+
+    /* Modal for Notes / Details */
+    .admin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 36, 76, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      backdrop-filter: blur(4px);
+    }
+
+    .admin-modal-backdrop.open {
+      display: flex;
+    }
+
+    .admin-modal-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      max-width: 550px;
+      width: calc(100vw - 40px);
+      box-shadow: 0 20px 60px rgba(6, 36, 76, 0.25);
+    }
+
+    /* Toast Notification */
+    .admin-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--navy);
+      color: #FFFFFF;
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(6, 36, 76, 0.25);
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      animation: slideInUp 0.3s ease;
+    }
+
+    /* Auth Gate Modal */
+    .auth-gate-wrap {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 36, 76, 0.8);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .auth-gate-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-2xl);
+      padding: 40px;
+      width: 420px;
+      max-width: calc(100vw - 32px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    /* Mobile Responsive Adaptation */
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+      .admin-header .admin-brand {
+        justify-content: center;
+      }
+      .admin-top-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 8px;
+      }
+      .admin-user-pill {
+        font-size: 0.78rem;
+        padding: 4px 10px;
+      }
+      .admin-nav-tabs {
+        padding: 0 12px;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .admin-tab-btn {
+        padding: 12px 10px;
+        font-size: 0.82rem;
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .admin-container {
+        padding: 16px 12px 30px;
+      }
+      .admin-card {
+        padding: 18px 14px;
+      }
+      .admin-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .admin-search-input, .admin-select {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Visual Editor Page Grid in Admin */
+    .editor-page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .editor-page-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      border: 1px solid rgba(6, 36, 76, 0.1);
+      box-shadow: 0 4px 15px rgba(6, 36, 76, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .editor-page-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(6, 36, 76, 0.1);
+      border-color: var(--gold);
+    }
+    .editor-page-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .editor-page-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .editor-page-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    /* SEO Audit Card & Score Gauge */
+    .seo-score-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #0F3E7A 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(6, 36, 76, 0.2);
+    }
+    .seo-score-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 6px solid #4CAF50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .seo-score-circle span {
+      font-size: 0.65rem;
+      font-family: var(--font-body);
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .seo-checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .seo-check-item {
+      background: #FFFFFF;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(6, 36, 76, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- AUTHENTICATION GATE (Visible if not logged in) -->
+  <div id="authGate" class="auth-gate-wrap" style="display: none;">
+    <div class="auth-gate-card">
+      <img src="cb-logo-circular.png" alt="Crayon Box School Logo" width="64" height="64" style="margin-bottom: 14px;">
+      <h2 style="font-family: var(--font-heading); color: var(--navy); margin-bottom: 6px;">Staff Administration</h2>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px;">Please authenticate to access the admissions and recruitment desk.</p>
+      
+      <form id="loginForm" style="display: flex; flex-direction: column; gap: 14px; text-align: left;">
+        <div>
+          <label style="font-size: 0.82rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px;">Username</label>
+          <input type="text" id="loginUsername" required class="admin-search-input" style="width: 100%; box-sizing: border-box;" placeholder="e.g. admin" value="admin">
+        </div>
+        <div>
+          <label style="font-size: 0.82rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px;">Password</label>
+          <input type="password" id="loginPassword" required class="admin-search-input" style="width: 100%; box-sizing: border-box;" placeholder="••••••••" value="cbs2026admin">
+        </div>
+        <div id="loginError" style="color: #D32F2F; font-size: 0.82rem; display: none; font-weight: 600;"></div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">Log In to Dashboard &rarr;</button>
+        <span style="font-size: 0.78rem; color: var(--text-muted); text-align: center; display: block;">Default credentials: <code>admin</code> / <code>cbs2026admin</code></span>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN HEADER -->
+  <header class="admin-header">
+    <a href="index.html" class="admin-brand">
+      <img src="cb-logo-circular.png" alt="Crayon Box Crest">
+      <div>
+        <h1>Crayon Box School</h1>
+        <span>Admin &amp; Admissions Desk</span>
+      </div>
+    </a>
+
+    <div class="admin-top-actions">
+      <a href="index.html" target="_blank" class="action-btn" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.2);">Live Website ↗</a>
+      <div class="admin-user-pill">
+        <span>👤 <strong id="adminUserName">Principal Office</strong></span>
+      </div>
+      <button id="logoutBtn" class="action-btn" style="background: #D32F2F; color: #fff; border: none;">Logout</button>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="admin-nav-tabs">
+    <button class="admin-tab-btn active" data-tab="tab-overview">📊 Overview</button>
+    <button class="admin-tab-btn" data-tab="tab-admissions">📋 Admissions Desk (<span id="tabCountAdmissions">0</span>)</button>
+    <button class="admin-tab-btn" data-tab="tab-tours">🚌 Campus Tours (<span id="tabCountTours">0</span>)</button>
+    <button class="admin-tab-btn" data-tab="tab-careers">💼 Careers &amp; Resumes (<span id="tabCountJobs">0</span>)</button>
+    <button class="admin-tab-btn" data-tab="tab-contact">✉️ Contact Messages (<span id="tabCountMessages">0</span>)</button>
+    <button class="admin-tab-btn" data-tab="tab-editor">✏️ Visual Page Editor (<span id="tabCountPages">16</span>)</button>
+    <button class="admin-tab-btn" data-tab="tab-seo">⚡ SEO &amp; Speed Audit</button>
+  </nav>
+
+  <!-- MAIN ADMIN CONTENT -->
+  <main class="admin-container">
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="tab-overview" class="admin-tab-content">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-blue">📋</div>
+          <div>
+            <div class="kpi-value" id="kpiTotalAdmissions">0</div>
+            <div class="kpi-label">Admissions Applications</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-gold">⏳</div>
+          <div>
+            <div class="kpi-value" id="kpiPendingAdmissions">0</div>
+            <div class="kpi-label">Pending Review</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-green">🚌</div>
+          <div>
+            <div class="kpi-value" id="kpiTotalTours">0</div>
+            <div class="kpi-label">Campus Walkthroughs</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap kpi-purple">💼</div>
+          <div>
+            <div class="kpi-value" id="kpiTotalJobs">0</div>
+            <div class="kpi-label">Faculty Applicants</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Recent Inbound Admissions Inquiries</h2>
+          <button class="action-btn" onclick="switchTab('tab-admissions')">View Full Admissions Queue &rarr;</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>App No</th>
+                <th>Student</th>
+                <th>Parent</th>
+                <th>Grade</th>
+                <th>Phone</th>
+                <th>Locality</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="overviewRecentAdmissions">
+              <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading recent inquiries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ADMISSIONS DESK -->
+    <section id="tab-admissions" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Admissions Inquiries Queue</h2>
+          <div class="admin-filter-bar">
+            <input type="text" id="admissionsSearch" class="admin-search-input" placeholder="Search by student, parent, phone..." oninput="filterAdmissionsTable()">
+            <select id="admissionsGradeFilter" class="admin-select" onchange="loadAdmissions()">
+              <option value="ALL">All Grades</option>
+              <option value="Nursery">Nursery</option>
+              <option value="Kindergarten">Kindergarten</option>
+              <option value="Grade 1">Grade 1</option>
+              <option value="Grade 2">Grade 2</option>
+              <option value="Grade 3">Grade 3</option>
+              <option value="Grade 4">Grade 4</option>
+              <option value="Grade 5">Grade 5</option>
+              <option value="Grade 6">Grade 6</option>
+              <option value="Grade 7">Grade 7</option>
+              <option value="Grade 8">Grade 8</option>
+            </select>
+            <select id="admissionsStatusFilter" class="admin-select" onchange="loadAdmissions()">
+              <option value="ALL">All Statuses</option>
+              <option value="PENDING">Pending</option>
+              <option value="REVIEWED">Reviewed</option>
+              <option value="INTERVIEW_SCHEDULED">Interview Scheduled</option>
+              <option value="ADMITTED">Admitted</option>
+            </select>
+            <a href="/api/admin/export/admissions" class="action-btn primary">📥 Export CSV</a>
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>App No</th>
+                <th>Student Name</th>
+                <th>Parent Name</th>
+                <th>Contact</th>
+                <th>Grade</th>
+                <th>Locality</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admissionsTableBody">
+              <tr><td colspan="8" style="text-align: center;">Loading admissions data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CAMPUS TOURS -->
+    <section id="tab-tours" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Campus Walkthrough Bookings</h2>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Parent Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Tour Date</th>
+                <th>Time Slot</th>
+                <th>Child Grade</th>
+                <th>Visitors</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="toursTableBody">
+              <tr><td colspan="10" style="text-align: center;">Loading bookings...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: CAREERS & RESUMES -->
+    <section id="tab-careers" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Faculty Recruitment &amp; Resumes Hub</h2>
+          <a href="/api/admin/export/careers" class="action-btn primary">📥 Export Candidates CSV</a>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>App ID</th>
+                <th>Candidate Name</th>
+                <th>Position Applied</th>
+                <th>Experience</th>
+                <th>Qualification</th>
+                <th>Contact</th>
+                <th>Resume Document</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="careersTableBody">
+              <tr><td colspan="9" style="text-align: center;">Loading candidate applications...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: CONTACT MESSAGES -->
+    <section id="tab-contact" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Inbound Contact Messages &amp; Helpdesk</h2>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Ticket ID</th>
+                <th>Sender</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Category</th>
+                <th>Message Content</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="contactTableBody">
+              <tr><td colspan="8" style="text-align: center;">Loading contact messages...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: VISUAL PAGE EDITOR -->
+    <section id="tab-editor" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <div class="admin-card-header" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+          <h2 class="admin-card-title">In-Browser Visual Page Editor Hub</h2>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">
+            Select any page below to launch the live inline visual editor. Click into any text or heading to modify copy, swap images with one click, and publish updates safely. An automated timestamped backup is preserved on every save!
+          </p>
+        </div>
+
+        <div style="background: #EBF8FF; border-left: 4px solid #3182CE; padding: 14px 18px; border-radius: 8px; margin: 16px 0; font-size: 0.86rem; color: #2B6CB0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <strong>🎨 Visual Editor Features:</strong> Click-to-edit copy &bull; Image Swapper with school presets &bull; Live Preview mode &bull; Page Title &amp; SEO Meta updater &bull; Automated rollbacks.
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button onclick="openCreatePageModal()" class="action-btn primary" style="background: var(--navy); color: #FFF; font-weight: 700;">➕ Create New Page</button>
+            <button onclick="loadPagesForEditor()" class="action-btn" style="background:#FFF;">🔄 Refresh Pages</button>
+          </div>
+        </div>
+
+        <div class="editor-page-grid" id="editorPagesGrid">
+          <div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: var(--text-muted);">Loading pages...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: PERFORMANCE & TECHNICAL SEO AUDIT -->
+    <section id="tab-seo" class="admin-tab-content" style="display: none;">
+      <div class="admin-card">
+        <div class="seo-score-banner">
+          <div>
+            <span style="background: rgba(229,169,60,0.25); color: var(--gold); padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">Technical SEO &amp; Speed Suite</span>
+            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin: 8px 0 6px;">School Ecosystem Optimization Health</h2>
+            <p style="font-size: 0.9rem; opacity: 0.85; margin: 0; max-width: 600px;">
+              Live verification across all 16 pages, sitemap index, robots directives, Open Graph cards, schema structured data, and server caching.
+            </p>
+          </div>
+          <div class="seo-score-circle">
+            <span id="seoOverallScoreNum">96%</span>
+            <span>Grade A+</span>
+          </div>
+        </div>
+
+        <!-- Technical Checklist Grid -->
+        <div class="seo-checklist-grid">
+          <div class="seo-check-item">
+            <span style="font-size: 1.3rem;">🚀</span>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--navy);">Native Gzip Engine</div>
+              <div style="font-size: 0.74rem; color: #388E3C; font-weight: 700;">Active (node:zlib)</div>
+            </div>
+          </div>
+          <div class="seo-check-item">
+            <span style="font-size: 1.3rem;">⚡</span>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--navy);">HTTP 304 ETags</div>
+              <div style="font-size: 0.74rem; color: #388E3C; font-weight: 700;">Conditional Caching Active</div>
+            </div>
+          </div>
+          <div class="seo-check-item">
+            <span style="font-size: 1.3rem;">🗺️</span>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--navy);">Sitemap.xml Index</div>
+              <div style="font-size: 0.74rem; color: #388E3C; font-weight: 700;" id="seoCountSitemap">16 Pages Indexed</div>
+            </div>
+          </div>
+          <div class="seo-check-item">
+            <span style="font-size: 1.3rem;">🤖</span>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--navy);">Robots.txt Directive</div>
+              <div style="font-size: 0.74rem; color: #388E3C; font-weight: 700;">Configured &amp; Verified</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-family: var(--font-heading); color: var(--navy); margin: 0;">Comprehensive 16-Page SEO Audit Table</h3>
+          <button onclick="loadSeoAudit()" class="action-btn primary">🔄 Re-run Full Live Audit</button>
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Page Filename</th>
+                <th>Title Tag</th>
+                <th>Meta Description</th>
+                <th>Social OG Cards</th>
+                <th>Schema.org JSON-LD</th>
+                <th>Image Alt Violations</th>
+                <th>Health Score</th>
+                <th>Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="seoTableBody">
+              <tr><td colspan="8" style="text-align: center;">Running live SEO audit...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: COUNSELOR NOTES & STATUS EDIT -->
+  <div id="notesModal" class="admin-modal-backdrop">
+    <div class="admin-modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 id="modalAppTitle" style="font-family: var(--font-heading); color: var(--navy); margin: 0;">Update Application</h3>
+        <button onclick="closeModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      </div>
+      <input type="hidden" id="modalInquiryId">
+      <div style="margin-bottom: 14px;">
+        <label style="font-size: 0.82rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px;">Workflow Status</label>
+        <select id="modalStatusSelect" class="admin-select" style="width: 100%;">
+          <option value="PENDING">Pending Initial Review</option>
+          <option value="REVIEWED">Reviewed by Coordinator</option>
+          <option value="INTERVIEW_SCHEDULED">Assessment / Interview Scheduled</option>
+          <option value="OFFERED">Admission Offer Issued</option>
+          <option value="ADMITTED">Enrolled &amp; Admitted</option>
+        </select>
+      </div>
+      <div style="margin-bottom: 18px;">
+        <label style="font-size: 0.82rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px;">Counselor / Admin Notes</label>
+        <textarea id="modalNotesText" class="admin-search-input" rows="4" style="width: 100%; box-sizing: border-box;" placeholder="Add remarks on parent conversation, documentation status, etc..."></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button onclick="closeModal()" class="action-btn">Cancel</button>
+        <button onclick="saveModalChanges()" class="action-btn primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CREATE NEW PAGE -->
+  <div id="createPageModal" class="admin-modal-backdrop">
+    <div class="admin-modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-family: var(--font-heading); color: var(--navy); margin: 0; display: flex; align-items: center; gap: 8px;">
+          <span>➕</span> Create New School Page
+        </h3>
+        <button onclick="closeCreatePageModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.4;">
+        Generates a new production page matching Crayon Box typography, responsive navigation, SEO metadata, and footer. It will also be auto-registered in <code>sitemap.xml</code>.
+      </p>
+
+      <form id="createPageForm" onsubmit="handleCreatePage(event)">
+        <div style="margin-bottom: 14px;">
+          <label style="font-size: 0.82rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px;">Page Title *</label>
+          <input type="text" id="newPageTitle" required class="admin-search-input" style="width: 100%; box-sizing: border-box;" placeholder="e.g. Summer Robotics Camp 2026" oninput="autoSlugPageTitle(this.value)">
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="font-size: 0.82rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px;">URL Slug / Filename *</label>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">/</span>
+            <input type="text" id="newPageSlug" required class="admin-search-input" style="flex: 1; box-sizing: border-box;" placeholder="summer-robotics-camp">
+            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">.html</span>
+          </div>
+          <small style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">Only lowercase letters, numbers, and hyphens.</small>
+        </div>
+
+        <div id="createPageError" style="color: #D32F2F; font-size: 0.82rem; margin-bottom: 14px; display: none; font-weight: 600;"></div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" onclick="closeCreatePageModal()" class="action-btn">Cancel</button>
+          <button type="submit" id="createPageSubmitBtn" class="action-btn primary">🚀 Create &amp; Launch Editor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="adminToast" class="admin-toast">
+    <span id="toastIcon">✓</span>
+    <span id="toastMessage">Action completed successfully</span>
+  </div>
+
+  <!-- ADMIN CLIENT SCRIPT -->
+  <script>
+    let currentAdmissionsData = [];
+
+    function showToast(msg, icon = '✓') {
+      const toast = document.getElementById('adminToast');
+      document.getElementById('toastMessage').textContent = msg;
+      document.getElementById('toastIcon').textContent = icon;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.authenticated) {
+            document.getElementById('authGate').style.display = 'none';
+            document.getElementById('adminUserName').textContent = data.user.fullName || data.user.username;
+            loadOverview();
+            return;
+          }
+        }
+      } catch (e) {}
+      document.getElementById('authGate').style.display = 'flex';
+    }
+
+    // Login handler
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+      const errBox = document.getElementById('loginError');
+      errBox.style.display = 'none';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const d = await res.json();
+        if (d.success) {
+          document.getElementById('authGate').style.display = 'none';
+          document.getElementById('adminUserName').textContent = d.user.fullName;
+          showToast('Welcome back, ' + d.user.fullName);
+          loadOverview();
+        } else {
+          errBox.textContent = d.error || 'Authentication failed';
+          errBox.style.display = 'block';
+        }
+      } catch (err) {
+        errBox.textContent = 'Server connection error';
+        errBox.style.display = 'block';
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      document.getElementById('authGate').style.display = 'flex';
+    });
+
+    // HTML Sanitization against Stored XSS
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+      });
+      document.querySelectorAll('.admin-tab-content').forEach(sec => {
+        sec.style.display = sec.id === tabId ? 'block' : 'none';
+      });
+
+      if (tabId === 'tab-overview') loadOverview();
+      if (tabId === 'tab-admissions') loadAdmissions();
+      if (tabId === 'tab-tours') loadTours();
+      if (tabId === 'tab-careers') loadCareers();
+      if (tabId === 'tab-contact') loadContact();
+      if (tabId === 'tab-editor') loadPagesForEditor();
+      if (tabId === 'tab-seo') loadSeoAudit();
+    }
+
+    document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
+    });
+
+    // 1. Overview Loader
+    async function loadOverview() {
+      try {
+        const res = await fetch('/api/admin/overview');
+        if (!res.ok) return;
+        const d = await res.json();
+        const s = d.stats;
+
+        document.getElementById('kpiTotalAdmissions').textContent = s.totalAdmissions;
+        document.getElementById('kpiPendingAdmissions').textContent = s.pendingAdmissions;
+        document.getElementById('kpiTotalTours').textContent = s.totalTours;
+        document.getElementById('kpiTotalJobs').textContent = s.totalJobs;
+
+        document.getElementById('tabCountAdmissions').textContent = s.totalAdmissions;
+        document.getElementById('tabCountTours').textContent = s.totalTours;
+        document.getElementById('tabCountJobs').textContent = s.totalJobs;
+        document.getElementById('tabCountMessages').textContent = s.unreadMessages;
+
+        const tbody = document.getElementById('overviewRecentAdmissions');
+        tbody.innerHTML = '';
+        if (d.recentAdmissions.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No admissions recorded yet.</td></tr>';
+          return;
+        }
+
+        d.recentAdmissions.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${escapeHtml(r.app_no)}</strong></td>
+            <td>${escapeHtml(r.student_name)}</td>
+            <td>${escapeHtml(r.parent_name)}</td>
+            <td><span class="status-badge" style="background:#E3F2FD; color:#1565C0;">${escapeHtml(r.grade_applied)}</span></td>
+            <td>${escapeHtml(r.parent_phone)}</td>
+            <td>${escapeHtml(r.locality || 'Delhi')}</td>
+            <td><span class="status-badge status-${escapeHtml(r.status)}">${escapeHtml((r.status || '').replace('_', ' '))}</span></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // 2. Admissions Loader
+    async function loadAdmissions() {
+      const grade = document.getElementById('admissionsGradeFilter').value;
+      const status = document.getElementById('admissionsStatusFilter').value;
+      const res = await fetch(`/api/admin/admissions?grade=${encodeURIComponent(grade)}&status=${encodeURIComponent(status)}`);
+      const d = await res.json();
+      currentAdmissionsData = d.admissions || [];
+      renderAdmissionsTable(currentAdmissionsData);
+    }
+
+    function renderAdmissionsTable(data) {
+      const tbody = document.getElementById('admissionsTableBody');
+      tbody.innerHTML = '';
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No matching applications found.</td></tr>';
+        return;
+      }
+
+      data.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(r.app_no)}</strong></td>
+          <td>${escapeHtml(r.student_name)}</td>
+          <td>${escapeHtml(r.parent_name)}</td>
+          <td>${escapeHtml(r.parent_phone)}<br><small style="color:var(--text-muted);">${escapeHtml(r.parent_email)}</small></td>
+          <td><span class="status-badge" style="background:#E3F2FD; color:#1565C0;">${escapeHtml(r.grade_applied)}</span></td>
+          <td>${escapeHtml(r.locality || '—')}</td>
+          <td><span class="status-badge status-${escapeHtml(r.status)}">${escapeHtml((r.status || '').replace('_', ' '))}</span></td>
+          <td>
+            <button class="action-btn primary" onclick="openNotesModalById(${Number(r.id)})">Manage</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterAdmissionsTable() {
+      const term = document.getElementById('admissionsSearch').value.toLowerCase();
+      const filtered = currentAdmissionsData.filter(r => 
+        (r.student_name || '').toLowerCase().includes(term) ||
+        (r.parent_name || '').toLowerCase().includes(term) ||
+        (r.parent_phone || '').includes(term) ||
+        (r.app_no || '').toLowerCase().includes(term)
+      );
+      renderAdmissionsTable(filtered);
+    }
+
+    // Modal Operations
+    function openNotesModalById(id) {
+      const r = currentAdmissionsData.find(item => item.id === id);
+      if (!r) return;
+      document.getElementById('modalInquiryId').value = r.id;
+      document.getElementById('modalAppTitle').textContent = `Manage Application: ${r.app_no}`;
+      document.getElementById('modalStatusSelect').value = r.status;
+      document.getElementById('modalNotesText').value = r.counselor_notes || '';
+      document.getElementById('notesModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('notesModal').classList.remove('open');
+    }
+
+    async function saveModalChanges() {
+      const id = document.getElementById('modalInquiryId').value;
+      const status = document.getElementById('modalStatusSelect').value;
+      const notes = document.getElementById('modalNotesText').value;
+
+      const res = await fetch(`/api/admin/admissions/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, notes })
+      });
+
+      if (res.ok) {
+        closeModal();
+        showToast('Application updated successfully');
+        loadAdmissions();
+      }
+    }
+
+    // 3. Tours Loader
+    async function loadTours() {
+      const res = await fetch('/api/admin/tours');
+      const d = await res.json();
+      const tbody = document.getElementById('toursTableBody');
+      tbody.innerHTML = '';
+      if (!d.tours || d.tours.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">No tour bookings found.</td></tr>';
+        return;
+      }
+
+      d.tours.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(t.booking_ref)}</strong></td>
+          <td>${escapeHtml(t.parent_name)}</td>
+          <td>${escapeHtml(t.parent_phone)}</td>
+          <td>${escapeHtml(t.parent_email)}</td>
+          <td><strong>${escapeHtml(t.tour_date)}</strong></td>
+          <td>${escapeHtml(t.time_slot)}</td>
+          <td>${escapeHtml(t.child_grade)}</td>
+          <td>${escapeHtml(t.attendees)}</td>
+          <td><span class="status-badge status-${escapeHtml(t.status)}">${escapeHtml(t.status)}</span></td>
+          <td>
+            ${t.status !== 'COMPLETED' ? `<button class="action-btn" onclick="updateTour(${Number(t.id)}, 'COMPLETED')">Mark Completed</button>` : '—'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function updateTour(id, status) {
+      await fetch(`/api/admin/tours/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      showToast('Tour marked as completed');
+      loadTours();
+    }
+
+    // 4. Careers Loader
+    async function loadCareers() {
+      const res = await fetch('/api/admin/careers');
+      const d = await res.json();
+      const tbody = document.getElementById('careersTableBody');
+      tbody.innerHTML = '';
+      if (!d.candidates || d.candidates.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">No faculty applicants found.</td></tr>';
+        return;
+      }
+
+      d.candidates.forEach(c => {
+        const tr = document.createElement('tr');
+        const safeResumeFile = c.resume_filename ? encodeURIComponent(c.resume_filename) : null;
+        const resumeBtn = safeResumeFile 
+          ? `<a href="/uploads/resumes/${safeResumeFile}" target="_blank" rel="noopener noreferrer" class="action-btn primary" style="text-decoration:none;">📄 View Resume</a>`
+          : `<span style="color:var(--text-muted); font-size:0.8rem;">Text Application</span>`;
+
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(c.app_id)}</strong></td>
+          <td>${escapeHtml(c.candidate_name)}</td>
+          <td><strong>${escapeHtml(c.position_applied)}</strong></td>
+          <td>${escapeHtml(c.experience_years)} Years</td>
+          <td>${escapeHtml(c.qualification)}</td>
+          <td>${escapeHtml(c.phone)}<br><small style="color:var(--text-muted);">${escapeHtml(c.email)}</small></td>
+          <td>${resumeBtn}</td>
+          <td><span class="status-badge status-${escapeHtml(c.status)}">${escapeHtml(c.status)}</span></td>
+          <td>
+            <select class="admin-select" style="padding:4px 8px; font-size:0.8rem;" onchange="updateJobStatus(${Number(c.id)}, this.value)">
+              <option value="NEW" ${c.status==='NEW'?'selected':''}>New</option>
+              <option value="SHORTLISTED" ${c.status==='SHORTLISTED'?'selected':''}>Shortlisted</option>
+              <option value="DEMO_SCHEDULED" ${c.status==='DEMO_SCHEDULED'?'selected':''}>Demo Scheduled</option>
+              <option value="HIRED" ${c.status==='HIRED'?'selected':''}>Hired</option>
+            </select>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function updateJobStatus(id, status) {
+      await fetch(`/api/admin/careers/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      showToast('Candidate status updated to ' + status);
+      loadCareers();
+    }
+
+    // 5. Contact Messages Loader
+    async function loadContact() {
+      const res = await fetch('/api/admin/contact');
+      const d = await res.json();
+      const tbody = document.getElementById('contactTableBody');
+      tbody.innerHTML = '';
+      if (!d.messages || d.messages.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No messages received.</td></tr>';
+        return;
+      }
+
+      d.messages.forEach(m => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(m.ticket_id)}</strong></td>
+          <td>${escapeHtml(m.sender_name)}</td>
+          <td>${escapeHtml(m.email)}</td>
+          <td>${escapeHtml(m.phone)}</td>
+          <td><span class="status-badge" style="background:#FFF3E0; color:#E65100;">${escapeHtml(m.category)}</span></td>
+          <td style="max-width:300px; line-height:1.4;">${escapeHtml(m.message)}</td>
+          <td><span class="status-badge status-${escapeHtml(m.status)}">${escapeHtml(m.status)}</span></td>
+          <td>
+            ${m.status === 'UNREAD' ? `<button class="action-btn" onclick="updateContactStatus(${Number(m.id)}, 'RESOLVED')">Mark Resolved</button>` : '—'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function updateContactStatus(id, status) {
+      await fetch(`/api/admin/contact/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      showToast('Message marked as resolved');
+      loadContact();
+    }
+
+    // 6. Visual Editor Pages Loader
+    async function loadPagesForEditor() {
+      const container = document.getElementById('editorPagesGrid');
+      container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: var(--text-muted);">Scanning school pages...</div>';
+      try {
+        const res = await fetch('/api/editor/pages');
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error);
+
+        document.getElementById('tabCountPages').textContent = data.pages.length;
+        container.innerHTML = '';
+        data.pages.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'editor-page-card';
+          const sizeKb = (p.sizeBytes / 1024).toFixed(1);
+          card.innerHTML = `
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                <span class="spotlight-tag tag-blue" style="font-size:0.7rem; padding:2px 8px;">${escapeHtml(p.filename)}</span>
+                <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">${sizeKb} KB</span>
+              </div>
+              <h3 class="editor-page-title">${escapeHtml(p.title)}</h3>
+              <div class="editor-page-meta">
+                <span>🕒 ${new Date(p.lastModified).toLocaleDateString()}</span>
+                <span>•</span>
+                <span style="color:#2E7D32; font-weight:600;">${Number(p.backupsCount)} Backups</span>
+              </div>
+            </div>
+            <div class="editor-page-actions">
+              <a href="/${encodeURIComponent(p.filename)}?editor=true" target="_blank" class="action-btn primary" style="text-decoration:none; flex:1; text-align:center; justify-content:center;">
+                ✏️ Open Editor ↗
+              </a>
+              <a href="/${encodeURIComponent(p.filename)}" target="_blank" class="action-btn" style="text-decoration:none;" title="View Live Page">
+                👁️ View
+              </a>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (err) {
+        container.innerHTML = `<div style="grid-column: 1 / -1; color: #D32F2F; text-align: center;">Error loading pages: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    // Modal & Handlers for Creating New Page
+    function openCreatePageModal() {
+      document.getElementById('newPageTitle').value = '';
+      document.getElementById('newPageSlug').value = '';
+      document.getElementById('createPageError').style.display = 'none';
+      document.getElementById('createPageModal').classList.add('open');
+      setTimeout(() => document.getElementById('newPageTitle').focus(), 100);
+    }
+
+    function closeCreatePageModal() {
+      document.getElementById('createPageModal').classList.remove('open');
+    }
+
+    function autoSlugPageTitle(title) {
+      const slug = title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      document.getElementById('newPageSlug').value = slug;
+    }
+
+    async function handleCreatePage(e) {
+      e.preventDefault();
+      const pageTitle = document.getElementById('newPageTitle').value.trim();
+      let slug = document.getElementById('newPageSlug').value.trim();
+      const errDiv = document.getElementById('createPageError');
+      const btn = document.getElementById('createPageSubmitBtn');
+
+      if (!pageTitle || !slug) {
+        errDiv.textContent = 'Please fill in both title and slug.';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      errDiv.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Creating Page...';
+
+      try {
+        const res = await fetch('/api/editor/create-page', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pageTitle, slug })
+        });
+        const data = await res.json();
+        if (!data.success) {
+          errDiv.textContent = data.error || 'Failed to create page.';
+          errDiv.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = '🚀 Create & Launch Editor';
+          return;
+        }
+
+        closeCreatePageModal();
+        showToast(`Page "${data.filename}" created successfully!`);
+        loadPagesForEditor();
+
+        // Launch editor for the newly created page
+        window.open(`/${data.filename}?editor=true`, '_blank');
+      } catch (err) {
+        errDiv.textContent = 'Network error: ' + err.message;
+        errDiv.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 Create & Launch Editor';
+      }
+    }
+
+    // 7. SEO & Performance Audit Loader
+    async function loadSeoAudit() {
+      const tbody = document.getElementById('seoTableBody');
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Running live site-wide SEO audit...</td></tr>';
+      try {
+        const res = await fetch('/api/seo-audit/run');
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error);
+
+        document.getElementById('seoOverallScoreNum').textContent = `${data.overallScore}%`;
+        if (data.technicalChecklist && data.technicalChecklist.sitemap) {
+          document.getElementById('seoCountSitemap').textContent = `${data.technicalChecklist.sitemap.urlsIndexed} Pages Indexed`;
+        }
+
+        tbody.innerHTML = '';
+        data.pages.forEach(p => {
+          const tr = document.createElement('tr');
+          const titleBadge = p.titleLength >= 25 && p.titleLength <= 75 
+            ? `<span class="spotlight-tag tag-green" style="font-size:0.7rem; padding:2px 6px;">✓ ${p.titleLength} chars</span>`
+            : `<span class="spotlight-tag tag-yellow" style="font-size:0.7rem; padding:2px 6px;">${p.titleLength} chars</span>`;
+
+          const descBadge = p.descriptionLength >= 80 && p.descriptionLength <= 200
+            ? `<span class="spotlight-tag tag-green" style="font-size:0.7rem; padding:2px 6px;">✓ ${p.descriptionLength} chars</span>`
+            : `<span class="spotlight-tag tag-yellow" style="font-size:0.7rem; padding:2px 6px;">${p.descriptionLength} chars</span>`;
+
+          const ogBadge = p.hasOg
+            ? `<span style="color:#2E7D32; font-weight:700;">✓ OG Active</span>`
+            : `<span style="color:#757575;">—</span>`;
+
+          const schemaBadge = p.hasSchema
+            ? `<span style="color:#2E7D32; font-weight:700;">✓ JSON-LD</span>`
+            : `<span style="color:#757575;">—</span>`;
+
+          const altBadge = p.missingAltCount === 0
+            ? `<span style="color:#2E7D32; font-weight:700;">✓ 0 missing (${p.totalImages})</span>`
+            : `<span style="color:#D32F2F; font-weight:700;">⚠️ ${p.missingAltCount} missing</span>`;
+
+          const scoreColor = p.score >= 90 ? '#2E7D32' : p.score >= 70 ? '#F57F17' : '#D32F2F';
+
+          tr.innerHTML = `
+            <td><strong>${escapeHtml(p.filename)}</strong></td>
+            <td>${titleBadge}</td>
+            <td>${descBadge}</td>
+            <td>${ogBadge}</td>
+            <td>${schemaBadge}</td>
+            <td>${altBadge}</td>
+            <td><strong style="color:${scoreColor}; font-size:1.05rem;">${Number(p.score)}%</strong></td>
+            <td>
+              <a href="/${encodeURIComponent(p.filename)}?editor=true" target="_blank" class="action-btn" style="text-decoration:none;">
+                ✏️ Edit
+              </a>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: #D32F2F;">Audit failed: ${escapeHtml(err.message)}</td></tr>`;
+      }
+    }
+
+    // Initialize check
+    checkAuth();
+  </script>
+</body>
+</html>

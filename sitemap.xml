@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Home Page -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://crayonboxschool.edu.in/index.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Academics & Curriculum -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/academics.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Admissions & Fee Calculator -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/admissions.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Campus & 3-Acre Grounds -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/campus.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Student Life & 4-House System -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/student-life.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- About & Faculty Leadership -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/about.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Parent Corner & Mobile ERP -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/parents.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Careers & Faculty Recruitment -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/careers.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Media Gallery & Virtual Tour -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/gallery.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- CBSE Mandatory Public Disclosure (Appendix IX) -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/mandatory-disclosure.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- News, Events & Circulars Hub -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/news-events.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Alumni Network & Wall of Fame -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/alumni.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact, Campus Tour & Transport Route Directions -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/contact.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Privacy Policy & DPDP Student Data Protection -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/privacy-policy.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Terms of Use & Admissions Policy -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/terms.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://crayonboxschool.edu.in/robotics-lab.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Official School Calendar 2026-27 -->
+  <url>
+    <loc>https://crayonboxschool.edu.in/calendar.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+</urlset>

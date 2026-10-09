@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  crayon-box-school:
+    build: .
+    container_name: crayon_box_school_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+    volumes:
+      # Persistent database, uploaded teacher resumes, media, and rollbacks
+      - school_db_data:/app/school.db
+      - school_uploads_data:/app/uploads
+      - school_backups_data:/app/backups
+
+volumes:
+  school_db_data:
+  school_uploads_data:
+  school_backups_data:
