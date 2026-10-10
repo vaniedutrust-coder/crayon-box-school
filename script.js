@@ -412,6 +412,45 @@ function initCrayonBoxApp() {
     });
   }
 
+  /* 8B. ADMISSIONS PAGE: FAST INQUIRY CARD */
+  const quickInquiryForm = document.getElementById('quickInquiryForm');
+  const quickInquirySuccess = document.getElementById('quickInquirySuccess');
+  if (quickInquiryForm && quickInquirySuccess) {
+    quickInquiryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = quickInquiryForm.querySelector('button[type="submit"]');
+      const origText = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) { submitBtn.innerHTML = 'Sending...'; submitBtn.disabled = true; }
+
+      const parentName = document.getElementById('quickParentName')?.value || 'Parent';
+      const phone = document.getElementById('quickPhone')?.value || '';
+      const grade = document.getElementById('quickGrade')?.value || 'Nursery';
+
+      try {
+        const res = await fetch('/api/admissions/apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ parentName, studentName: 'Applicant', phone, grade, notes: 'Fast callback request via Admissions quick-inquiry card' })
+        });
+        const d = await res.json();
+        if (d.success) {
+          quickInquirySuccess.innerHTML = `✅ Thank you, ${parentName}! Your inquiry (Ref: <strong>${d.appNo}</strong>) has been registered. Our admissions coordinator will contact you via WhatsApp &amp; phone within 24 hours.`;
+          quickInquirySuccess.style.display = 'block';
+          quickInquiryForm.reset();
+        } else {
+          quickInquirySuccess.innerHTML = `⚠️ ${d.error || 'Failed to submit inquiry. Please call +91 98111 02008.'}`;
+          quickInquirySuccess.style.display = 'block';
+        }
+      } catch (err) {
+        console.error(err);
+        quickInquirySuccess.innerHTML = '⚠️ Error connecting to admissions server. Please call us directly at +91 98111 02008.';
+        quickInquirySuccess.style.display = 'block';
+      } finally {
+        if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
+      }
+    });
+  }
+
   /* ==========================================================================
      9. ORIGINKIT ANIMATION 1: SHINE CARD & 3D PERSPECTIVE TILT
      Tracks mouse on stage cards, step cards, fee pillars, campus pillars, faculty & contact cards

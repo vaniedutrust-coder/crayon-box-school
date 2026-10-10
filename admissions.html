@@ -480,6 +480,67 @@
             </div>
           </div>
 
+          <!-- Fast Admissions Inquiry Card (Low friction, 15-second connect) -->
+          <div class="quick-inquiry-box" style="background: #FAF7F2; border: 1.5px solid #E2D9CC; border-radius: var(--radius-lg, 16px); padding: 24px; margin-bottom: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 18px;">
+              <div>
+                <span class="spotlight-tag tag-gold" style="font-size: 0.75rem; margin-bottom: 8px; display: inline-block;">⚡ FAST INQUIRY &bull; 15-SECOND CONNECT</span>
+                <h3 style="font-family: var(--font-heading); color: var(--navy); font-size: 1.35rem; margin: 0 0 6px;">Prefer a Quick Call or WhatsApp Prospectus?</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">No need to fill out a long form. Reach our admissions desk instantly or leave your details below.</p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="https://wa.me/919811102008?text=Hello%20Crayon%20Box%20School%2C%20I%20would%20like%20to%20enquire%20about%20admissions%20for%20Session%202026-27." target="_blank" rel="noopener noreferrer" class="btn btn-green-whatsapp btn-sm">
+                  <span>Chat on WhatsApp →</span>
+                </a>
+                <a href="tel:+919811102008" class="btn btn-outline-navy btn-sm">
+                  <span>📞 Call +91 98111 02008</span>
+                </a>
+              </div>
+            </div>
+
+            <form id="quickInquiryForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; align-items: end;">
+              <div class="form-group" style="margin: 0;">
+                <label for="quickParentName" style="font-size: 0.85rem; font-weight: 600;">Parent Name *</label>
+                <input type="text" id="quickParentName" required placeholder="e.g. Smt. Pooja Verma" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #CBD5E1; width: 100%;">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label for="quickPhone" style="font-size: 0.85rem; font-weight: 600;">Mobile Number *</label>
+                <input type="tel" id="quickPhone" required placeholder="+91 98XXX XXXXX" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #CBD5E1; width: 100%;">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label for="quickGrade" style="font-size: 0.85rem; font-weight: 600;">Target Grade *</label>
+                <select id="quickGrade" required style="padding: 10px 14px; border-radius: 8px; border: 1px solid #CBD5E1; width: 100%;">
+                  <option value="" disabled selected>Select Grade</option>
+                  <option value="Nursery">Nursery (Age 3+)</option>
+                  <option value="KG">Kindergarten (Age 4+)</option>
+                  <option value="Class 1">Class 1 (Age 5+ to 6)</option>
+                  <option value="Classes 2-5">Primary (Classes 2–5)</option>
+                  <option value="Classes 6-8">Middle School (Classes 6–8)</option>
+                </select>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-gold btn-block" style="padding: 11px 16px;">
+                  Request Callback →
+                </button>
+              </div>
+            </form>
+            <div id="quickInquirySuccess" style="display: none; margin-top: 14px; padding: 12px; background: #DCFCE7; color: #166534; border-radius: 8px; font-size: 0.88rem; font-weight: 500;">
+              ✅ Thank you! Our admissions coordinator will contact you within 24 hours.
+            </div>
+            <div style="margin-top: 12px; font-size: 0.8rem; color: #64748B; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <span>⏱️ <strong>Guaranteed Response:</strong> Within 24 business hours (Mon–Sat, 8:00 AM – 3:30 PM).</span>
+              <span>🔒 100% confidential. No unsolicited marketing.</span>
+            </div>
+          </div>
+
+          <!-- Comprehensive Application Form Divider -->
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #E2E8F0;">
+            <div>
+              <h3 style="font-family: var(--font-heading); color: var(--navy); font-size: 1.25rem; margin: 0;">Comprehensive Student Application Form</h3>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin: 2px 0 0;">Fill out complete student records for formal admissions registry evaluation.</p>
+            </div>
+          </div>
+
           <form class="main-admission-form" id="mainAdmissionForm">
             <!-- Part 1: Parent & Contact Details -->
             <div class="form-section-title">
