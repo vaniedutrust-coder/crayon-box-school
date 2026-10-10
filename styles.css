@@ -2218,51 +2218,72 @@ button {
 }
 
 /* ==========================================================================
-   FLOATING QUICK ADMISSIONS CONNECT (WHATSAPP)
+   FLOATING QUICK ADMISSIONS CONNECT (WHATSAPP) - COMPACT & REFINED
    ========================================================================== */
-.floating-quick-connect {
+.floating-quick-connect,
+.floating-admissions-pill {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   z-index: 990;
 }
 
-.quick-whatsapp-btn {
+.quick-whatsapp-btn,
+.floating-admissions-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   background: #25D366;
   background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #FFFFFF !important;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 0.92rem;
-  padding: 12px 20px;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  padding: 8px 14px;
   border-radius: var(--radius-full);
-  box-shadow: 0 10px 28px rgba(18, 140, 126, 0.35), 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(18, 140, 126, 0.28), 0 2px 6px rgba(0, 0, 0, 0.08);
   text-decoration: none;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 2px solid #FFFFFF;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  line-height: 1.2;
 }
 
-.quick-whatsapp-btn:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 14px 36px rgba(18, 140, 126, 0.45);
+.quick-whatsapp-btn:hover,
+.floating-admissions-pill:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(18, 140, 126, 0.38);
 }
 
-.wa-icon {
-  font-size: 1.25rem;
+.wa-icon,
+.floating-admissions-pill .chat-icon {
+  font-size: 1.05rem;
   line-height: 1;
 }
 
-@media (max-width: 768px) {
-  .floating-quick-connect {
+@media (max-width: 640px) {
+  .floating-quick-connect,
+  .floating-admissions-pill {
     bottom: 16px;
     right: 16px;
   }
-  .quick-whatsapp-btn {
-    padding: 10px 16px;
-    font-size: 0.85rem;
+  .quick-whatsapp-btn,
+  .floating-admissions-pill {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(18, 140, 126, 0.35);
+  }
+  .quick-whatsapp-btn .wa-text,
+  .floating-admissions-pill .pill-label {
+    display: none;
+  }
+  .wa-icon,
+  .floating-admissions-pill .chat-icon {
+    font-size: 1.25rem;
+    margin: 0;
   }
 }
 
@@ -12092,44 +12113,51 @@ body.high-contrast .a11y-reset-btn {
   border: 1px solid #FFFF00 !important;
 }
 
-/* Floating Accessibility Launcher Button */
+/* Floating Accessibility Launcher Button - Compact & Refined */
 .a11y-trigger-btn {
   position: fixed;
-  bottom: 24px;
-  left: 24px;
+  bottom: 20px;
+  left: 20px;
   z-index: 9995;
   background: var(--navy);
   color: #FFFFFF;
-  border: 2px solid var(--gold);
+  border: 1.5px solid var(--gold);
   border-radius: var(--radius-full);
-  padding: 10px 18px;
-  font-size: 0.88rem;
-  font-weight: 700;
+  padding: 7px 13px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(6, 36, 76, 0.28);
+  box-shadow: 0 4px 14px rgba(6, 36, 76, 0.22);
   transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+  line-height: 1.2;
 }
 
 .a11y-trigger-btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   background: var(--navy-light);
-  box-shadow: 0 12px 30px rgba(6, 36, 76, 0.35);
+  box-shadow: 0 6px 18px rgba(6, 36, 76, 0.3);
+}
+
+.a11y-trigger-btn svg {
+  width: 15px;
+  height: 15px;
 }
 
 .a11y-trigger-btn .a11y-icon {
-  font-size: 1.15rem;
+  font-size: 1rem;
 }
 
 /* Accessibility Control Drawer / Panel */
 .a11y-panel {
   position: fixed;
-  bottom: 84px;
-  left: 24px;
-  width: 330px;
-  max-width: calc(100vw - 48px);
+  bottom: 68px;
+  left: 20px;
+  width: 320px;
+  max-width: calc(100vw - 40px);
   background: #FFFFFF;
   border: 2px solid var(--navy);
   border-radius: var(--radius-lg);
@@ -12293,16 +12321,27 @@ body.high-contrast .a11y-reset-btn {
   background: #FFE0B2;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .a11y-trigger-btn {
-    bottom: 20px;
+    bottom: 16px;
     left: 16px;
-    padding: 8px 14px;
-    font-size: 0.8rem;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(6, 36, 76, 0.25);
+  }
+  .a11y-trigger-btn span {
+    display: none;
+  }
+  .a11y-trigger-btn svg {
+    width: 17px;
+    height: 17px;
   }
   .a11y-panel {
     left: 16px;
-    bottom: 74px;
+    bottom: 64px;
     width: calc(100vw - 32px);
   }
 }
