@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Not Found (404) — Lost in the Crayon Box | Crayon Box School</title>
-  <meta name="description" content="Oops! Looks like this crayon rolled off the page. Let's get you back to Crayon Box School Home, Admissions, Academics, or Contact.">
+  <meta name="description" content="Oops! Looks like this crayon rolled off the page. Redirecting you to Crayon Box School homepage, admissions, academics, and campus life in Burari, Delhi.">
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="refresh" content="5;url=/">
   <link rel="icon" type="image/png" href="cb-logo-circular.png">
 
   <!-- Google Fonts: Fraunces + Outfit + Caveat -->
@@ -13,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=3.0">
+  <link rel="stylesheet" href="styles.css?v=3.1">
 </head>
 <body class="page-404">
 
@@ -44,7 +45,6 @@
         <a href="about.html" class="nav-link">About &amp; Faculty</a>
         <a href="campus.html" class="nav-link">Campus</a>
         <a href="gallery.html" class="nav-link">Gallery</a>
-        
         <a href="news-events.html" class="nav-link">News &amp; Calendar</a>
         <a href="parents.html" class="nav-link">Parent Corner</a>
         <a href="careers.html" class="nav-link">Careers</a>
@@ -70,7 +70,6 @@
         <a href="about.html" class="mobile-link">About &amp; Faculty</a>
         <a href="campus.html" class="mobile-link">Campus</a>
         <a href="gallery.html" class="mobile-link">Gallery</a>
-        
         <a href="news-events.html" class="mobile-link">News &amp; Calendar</a>
         <a href="parents.html" class="mobile-link">Parent Corner</a>
         <a href="careers.html" class="mobile-link">Careers</a>
@@ -102,13 +101,38 @@
           <p class="error-hero-subtitle">"Even our brightest little artists color outside the lines sometimes."</p>
 
           <p class="error-hero-desc">
-            The page you are looking for may have been moved, renamed, or temporarily tucked away in our art supplies closet. Don’t worry — let’s get you right back to learning, growing, and shining!
+            The page you are looking for may have been moved, renamed, or temporarily tucked away in our art supplies closet. Don’t worry — we are automatically bringing you back to learning, growing, and shining!
           </p>
 
-          <div class="error-actions">
-            <a href="index.html" class="btn btn-primary btn-lg">🏠 Return to Homepage</a>
-            <a href="admissions.html" class="btn btn-gold btn-lg">📋 Admissions 2026–27 &rarr;</a>
-            <a href="contact.html" class="btn btn-outline btn-lg">📞 Contact Front Desk</a>
+          <!-- AUTOMATIC HOMEPAGE REDIRECT CARD -->
+          <div class="redirect-card" id="redirectCard" role="region" aria-live="polite" aria-label="Automatic Redirect Notification">
+            <div class="redirect-status-row">
+              <span class="redirect-spinner" aria-hidden="true"></span>
+              <p class="redirect-status-text" id="redirectStatusText">
+                Redirecting you to our homepage in <span id="countdownNumber" class="redirect-countdown-badge">5</span> seconds...
+              </p>
+            </div>
+
+            <div class="redirect-progress-wrapper" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5" aria-label="Redirect countdown progress">
+              <div class="redirect-progress-bar" id="progressBar" style="width: 100%;"></div>
+            </div>
+
+            <div class="redirect-controls">
+              <a href="index.html" class="btn btn-primary" id="immediateHomeBtn">🏠 Go to Homepage Now</a>
+              <button type="button" class="btn btn-outline" id="pauseRedirectBtn">⏸️ Stay on this Page</button>
+              <a href="admissions.html" class="btn btn-gold">📋 Admissions Open &rarr;</a>
+            </div>
+
+            <p class="redirect-hint" id="redirectHint">
+              Want to explore this page or copy school details? Click <strong>"Stay on this Page"</strong> to pause redirect.
+            </p>
+
+            <div>
+              <a href="tel:+919811102008" class="redirect-help-contact">
+                <span>📞 Need Immediate Assistance?</span>
+                <strong>+91 98111 02008</strong>
+              </a>
+            </div>
           </div>
 
           <div style="border-top: 1px solid rgba(6, 36, 76, 0.08); padding-top: 32px; margin-top: 24px;">
@@ -117,6 +141,10 @@
               <a href="academics.html" class="error-quick-card">
                 <span class="card-icon">🎓</span>
                 <span>Academics &amp; Curriculum</span>
+              </a>
+              <a href="admissions.html" class="error-quick-card">
+                <span class="card-icon">📋</span>
+                <span>Admissions 2026–27</span>
               </a>
               <a href="student-life.html" class="error-quick-card">
                 <span class="card-icon">🏆</span>
@@ -133,6 +161,10 @@
               <a href="gallery.html" class="error-quick-card">
                 <span class="card-icon">📸</span>
                 <span>Photo &amp; Video Gallery</span>
+              </a>
+              <a href="news-events.html" class="error-quick-card">
+                <span class="card-icon">📰</span>
+                <span>News &amp; Calendar</span>
               </a>
               <a href="mandatory-disclosure.html" class="error-quick-card">
                 <span class="card-icon">📜</span>
@@ -264,6 +296,83 @@
 
     <button id="a11yResetBtn" class="a11y-reset-btn">Reset All Settings</button>
   </div>
+
+  <!-- Client-side Redirection Controller -->
+  <script>
+    (function() {
+      var TOTAL_SECONDS = 5;
+      var remaining = TOTAL_SECONDS;
+      var isPaused = false;
+      var countdownEl = document.getElementById('countdownNumber');
+      var progressBar = document.getElementById('progressBar');
+      var statusText = document.getElementById('redirectStatusText');
+      var pauseBtn = document.getElementById('pauseRedirectBtn');
+      var redirectCard = document.getElementById('redirectCard');
+      var redirectHint = document.getElementById('redirectHint');
+      var timer = null;
+
+      function updateUI() {
+        if (countdownEl) {
+          countdownEl.textContent = remaining;
+        }
+        if (progressBar) {
+          var percentage = Math.max(0, (remaining / TOTAL_SECONDS) * 100);
+          progressBar.style.width = percentage + '%';
+        }
+      }
+
+      function startCountdown() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(function() {
+          if (isPaused) return;
+          remaining -= 1;
+          updateUI();
+
+          if (remaining <= 0) {
+            clearInterval(timer);
+            if (statusText) {
+              statusText.innerHTML = 'Taking you to homepage now...';
+            }
+            // Seamless client redirect to homepage
+            window.location.replace('/');
+          }
+        }, 1000);
+      }
+
+      if (pauseBtn) {
+        pauseBtn.addEventListener('click', function() {
+          if (!isPaused) {
+            // Pause redirect
+            isPaused = true;
+            if (timer) clearInterval(timer);
+            redirectCard.classList.add('paused');
+            pauseBtn.textContent = '▶️ Resume Redirect';
+            statusText.innerHTML = '<span>Automatic redirect paused.</span>';
+            if (redirectHint) {
+              redirectHint.innerHTML = 'Redirect is currently on hold. Explore our school programs below, or click <strong>"Go to Homepage Now"</strong> anytime.';
+            }
+          } else {
+            // Resume redirect
+            isPaused = false;
+            remaining = TOTAL_SECONDS;
+            updateUI();
+            redirectCard.classList.remove('paused');
+            pauseBtn.textContent = '⏸️ Stay on this Page';
+            statusText.innerHTML = 'Redirecting you to our homepage in <span id="countdownNumber" class="redirect-countdown-badge">' + remaining + '</span> seconds...';
+            countdownEl = document.getElementById('countdownNumber');
+            if (redirectHint) {
+              redirectHint.innerHTML = 'Want to explore this page or copy school details? Click <strong>"Stay on this Page"</strong> to pause redirect.';
+            }
+            startCountdown();
+          }
+        });
+      }
+
+      // Initialize countdown on DOM load
+      updateUI();
+      startCountdown();
+    })();
+  </script>
 
   <script src="script.js"></script>
 </body>

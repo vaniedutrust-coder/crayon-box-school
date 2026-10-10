@@ -972,7 +972,7 @@ const server = http.createServer(async (req, res) => {
 
   // 1. Resolve relative path from ROOT safely
   const relPath = path.normalize(fileSubPath).replace(/^(\.\.[\/\\])+/, '');
-  const filePath = path.join(ROOT, relPath);
+  let filePath = path.join(ROOT, relPath);
 
   // 2. Strict Traversal Protection
   const relativeToRoot = path.relative(ROOT, filePath);
@@ -1038,12 +1038,25 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 6. Strict File Extension Allowlist
+  // If path doesn't have an extension, check if an .html file exists
+  if (!path.extname(filePath)) {
+    const htmlCandidate = filePath + '.html';
+    if (fs.existsSync(htmlCandidate)) {
+      filePath = htmlCandidate;
+    }
+  }
+
+  // 6. Strict File Extension Allowlist & 404 Fallback
   const ext = path.extname(filePath).toLowerCase();
   if (!MIME_TYPES[ext]) {
+    const errPage = path.join(ROOT, '404.html');
     res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.end('Not Found');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    if (fs.existsSync(errPage)) {
+      fs.createReadStream(errPage).pipe(res);
+    } else {
+      res.end('Not Found');
+    }
     return;
   }
 
