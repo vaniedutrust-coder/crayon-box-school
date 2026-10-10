@@ -1554,7 +1554,7 @@ function initCrayonBoxApp() {
       const cleanDate = e.date.replace(/-/g, '');
       icsData.push(
         'BEGIN:VEVENT',
-        `UID:cbs-event-${idx}-${cleanDate}@crayonboxschool.edu.in`,
+        `UID:cbs-event-${idx}-${cleanDate}@crayonboxschool.com`,
         `DTSTAMP:${cleanDate}T090000Z`,
         `DTSTART;VALUE=DATE:${cleanDate}`,
         `SUMMARY:${e.title} - Crayon Box School`,

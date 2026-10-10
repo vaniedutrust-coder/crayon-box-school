@@ -35,7 +35,18 @@
       ],
       "destination": "https://www.crayonboxschool.com/$1",
       "permanent": true
-    }
+    },
+    { "source": "/campus-life", "destination": "/student-life", "permanent": true },
+    { "source": "/campus-life.html", "destination": "/student-life", "permanent": true },
+    { "source": "/news", "destination": "/news-events", "permanent": true },
+    { "source": "/news.html", "destination": "/news-events", "permanent": true },
+    { "source": "/faculty", "destination": "/about", "permanent": true },
+    { "source": "/faculty.html", "destination": "/about", "permanent": true },
+    { "source": "/enquiry", "destination": "/admissions", "permanent": true },
+    { "source": "/apply", "destination": "/admissions", "permanent": true },
+    { "source": "/tour", "destination": "/admissions", "permanent": true },
+    { "source": "/parent-corner", "destination": "/parents", "permanent": true },
+    { "source": "/disclosure", "destination": "/mandatory-disclosure", "permanent": true }
   ],
   "headers": [
     {

@@ -176,6 +176,38 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';");
 
+  // Domain Redirect: crayonboxpreschool.in -> https://www.crayonboxschool.com
+  const reqHost = (req.headers.host || '').toLowerCase();
+  if (reqHost.includes('crayonboxpreschool.in')) {
+    res.statusCode = 308;
+    res.setHeader('Location', `https://www.crayonboxschool.com${req.url}`);
+    res.end();
+    return;
+  }
+
+  // Legacy Route Redirects (308 Permanent)
+  const LEGACY_ROUTE_REDIRECTS = {
+    '/campus-life': '/student-life.html',
+    '/campus-life.html': '/student-life.html',
+    '/news': '/news-events.html',
+    '/news.html': '/news-events.html',
+    '/faculty': '/about.html',
+    '/faculty.html': '/about.html',
+    '/enquiry': '/admissions.html',
+    '/apply': '/admissions.html',
+    '/tour': '/admissions.html',
+    '/parent-corner': '/parents.html',
+    '/disclosure': '/mandatory-disclosure.html'
+  };
+  const cleanReqPath = reqPath.endsWith('/') && reqPath.length > 1 ? reqPath.slice(0, -1) : reqPath;
+  if (LEGACY_ROUTE_REDIRECTS[cleanReqPath] || LEGACY_ROUTE_REDIRECTS[cleanReqPath.toLowerCase()]) {
+    const dest = LEGACY_ROUTE_REDIRECTS[cleanReqPath] || LEGACY_ROUTE_REDIRECTS[cleanReqPath.toLowerCase()];
+    res.statusCode = 308;
+    res.setHeader('Location', dest + (queryString ? `?${queryString}` : ''));
+    res.end();
+    return;
+  }
+
   // =========================================================================
   // REST API ROUTING (/api/*)
   // =========================================================================
