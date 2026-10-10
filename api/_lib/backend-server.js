@@ -162,6 +162,24 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+async function dispatchLeadNotification(type, payload) {
+  const timestamp = new Date().toISOString();
+  console.log(`[LEAD NOTIFICATION] Type: ${type} | Ref: ${payload.appNo || payload.bookingRef || 'N/A'} | Parent: ${payload.parentName} | Phone: ${payload.phone} | At: ${timestamp}`);
+
+  const webhookUrl = process.env.ADMISSIONS_WEBHOOK_URL;
+  if (webhookUrl && typeof fetch === 'function') {
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, payload, timestamp, school: 'The Crayon Box School' })
+      });
+    } catch (err) {
+      console.error('[LEAD NOTIFICATION ERROR] Webhook failed:', err.message);
+    }
+  }
+}
+
 const server = http.createServer(async (req, res) => {
   const urlParts = req.url.split('?');
   const reqPath = decodeURI(urlParts[0]);
@@ -254,11 +272,26 @@ const server = http.createServer(async (req, res) => {
           previousSchool: sanitizeText(body.previousSchool || body.previous_school),
           notes
         });
+
+        dispatchLeadNotification('ADMISSION_INQUIRY', {
+          appNo,
+          studentName,
+          parentName,
+          phone,
+          grade,
+          email,
+          notes
+        });
+
+        const waMsg = `Hello Crayon Box Admissions, I submitted an admission inquiry for my child (Ref: ${appNo}, Grade: ${grade}). Please share next steps and visiting timings.`;
+        const whatsappUrl = `https://wa.me/919811102008?text=${encodeURIComponent(waMsg)}`;
+
         return sendJson(res, 201, {
           success: true,
           message: 'Admission inquiry submitted successfully!',
           appNo,
-          id: appNo
+          id: appNo,
+          whatsappUrl
         }, true);
       } catch (e) {
         return sendJson(res, 500, { success: false, error: 'Failed to process admission inquiry.' }, true);
@@ -297,11 +330,28 @@ const server = http.createServer(async (req, res) => {
           attendees,
           notes
         });
+
+        dispatchLeadNotification('CAMPUS_WALKTHROUGH_BOOKING', {
+          bookingRef,
+          parentName,
+          phone,
+          date,
+          timeSlot,
+          email,
+          grade,
+          attendees,
+          notes
+        });
+
+        const waMsg = `Hello Crayon Box Admissions, I booked a campus visit on ${date} at ${timeSlot} (Ref: ${bookingRef}). Please confirm our appointment.`;
+        const whatsappUrl = `https://wa.me/919811102008?text=${encodeURIComponent(waMsg)}`;
+
         return sendJson(res, 201, {
           success: true,
           message: 'Campus walkthrough booked successfully!',
           bookingRef,
-          id: bookingRef
+          id: bookingRef,
+          whatsappUrl
         }, true);
       } catch (e) {
         return sendJson(res, 500, { success: false, error: 'Failed to book campus visit.' }, true);

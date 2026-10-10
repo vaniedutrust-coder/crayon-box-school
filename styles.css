@@ -114,8 +114,9 @@ button {
   text-align: center;
 }
 
-/* Subtle Floating Watercolor Leaf Particles */
+/* Subtle Floating Watercolor Leaf Particles - Disabled for visual calm and premium institutional aesthetic */
 .leaf-ambient-container {
+  display: none !important;
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -1157,13 +1158,48 @@ button {
 }
 
 .spotlight-tag {
-  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  line-height: 1.4;
+  margin-bottom: 8px;
 }
-.tag-magenta { color: var(--magenta); }
-.tag-gold { color: var(--gold); }
+.tag-magenta {
+  color: var(--magenta);
+  background: rgba(196, 30, 102, 0.07);
+  border: 1px solid rgba(196, 30, 102, 0.2);
+}
+.tag-gold {
+  color: #925C05;
+  background: rgba(229, 169, 30, 0.1);
+  border: 1px solid rgba(229, 169, 30, 0.25);
+}
+.tag-blue {
+  color: var(--primary);
+  background: rgba(30, 96, 181, 0.08);
+  border: 1px solid rgba(30, 96, 181, 0.2);
+}
+.tag-green {
+  color: #2E7D32;
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid rgba(46, 125, 50, 0.2);
+}
+.tag-orange {
+  color: #C05621;
+  background: rgba(230, 106, 35, 0.08);
+  border: 1px solid rgba(230, 106, 35, 0.2);
+}
+.tag-purple {
+  color: #6B46C1;
+  background: rgba(107, 70, 193, 0.08);
+  border: 1px solid rgba(107, 70, 193, 0.2);
+}
 
 .spotlight-headline {
   font-family: var(--font-serif);

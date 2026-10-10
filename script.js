@@ -171,20 +171,24 @@ function initCrayonBoxApp() {
         });
         const d = await res.json();
         if (d.success) {
-          tourSuccess.innerHTML = `
+          let tourSuccessHtml = `
             <div style="text-align: center; padding: 16px;">
               <h4 style="color: #2E7D32; font-size: 1.15rem; margin-bottom: 6px;">&#10004; Walkthrough Confirmed!</h4>
               <p style="font-size: 0.9rem; color: var(--navy); margin-bottom: 4px;">Booking Ref: <strong>${d.bookingRef}</strong></p>
-              <p style="font-size: 0.8rem; color: var(--text-muted);">We look forward to welcoming your family on ${date}.</p>
-            </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">We look forward to welcoming your family on ${date}.</p>
           `;
+          if (d.whatsappUrl) {
+            tourSuccessHtml += `<a href="${d.whatsappUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #FFFFFF; padding: 6px 14px; border-radius: 6px; font-weight: 600; font-size: 0.82rem; text-decoration: none;">💬 Confirm via WhatsApp</a>`;
+          }
+          tourSuccessHtml += `</div>`;
+          tourSuccess.innerHTML = tourSuccessHtml;
           tourSuccess.classList.add('show');
           tourForm.reset();
           setTimeout(() => {
             tourSuccess.classList.remove('show');
             closeAllModals();
             if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
-          }, 4000);
+          }, 6000);
         }
       } catch (err) {
         console.error(err);
@@ -400,7 +404,11 @@ function initCrayonBoxApp() {
           mainAdmissionForm.style.display = 'none';
           const p = mainAdmissionSuccess.querySelector('p');
           if (p) {
-            p.innerHTML = `Thank you for choosing Crayon Box School! Your official registration reference is <strong style="color:var(--navy); font-size:1.1rem; background:#FFF8E1; padding:2px 8px; border-radius:4px; border:1px solid #FFE082;">${d.appNo}</strong>. Our admissions coordinator will contact you via WhatsApp &amp; phone within 24 hours.`;
+            let msgHtml = `Thank you for choosing Crayon Box School! Your official registration reference is <strong style="color:var(--navy); font-size:1.1rem; background:#FFF8E1; padding:2px 8px; border-radius:4px; border:1px solid #FFE082;">${d.appNo}</strong>.<br><br>Our admissions coordinator will contact you via WhatsApp &amp; phone within 24 hours.`;
+            if (d.whatsappUrl) {
+              msgHtml += `<div style="margin-top:16px;"><a href="${d.whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-green-whatsapp btn-sm" style="display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600;">💬 Open WhatsApp to Connect Directly &rarr;</a></div>`;
+            }
+            p.innerHTML = msgHtml;
           }
           mainAdmissionSuccess.classList.add('show');
           mainAdmissionSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -434,7 +442,11 @@ function initCrayonBoxApp() {
         });
         const d = await res.json();
         if (d.success) {
-          quickInquirySuccess.innerHTML = `✅ Thank you, ${parentName}! Your inquiry (Ref: <strong>${d.appNo}</strong>) has been registered. Our admissions coordinator will contact you via WhatsApp &amp; phone within 24 hours.`;
+          let successHtml = `✅ Thank you, ${parentName}! Your inquiry (Ref: <strong>${d.appNo}</strong>) has been registered. Our admissions coordinator will contact you via WhatsApp &amp; phone within 24 hours.`;
+          if (d.whatsappUrl) {
+            successHtml += `<div style="margin-top: 10px;"><a href="${d.whatsappUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #16A34A; color: #FFFFFF; padding: 7px 14px; border-radius: 6px; font-weight: 600; font-size: 0.82rem; text-decoration: none;">💬 Connect Immediately via WhatsApp &rarr;</a></div>`;
+          }
+          quickInquirySuccess.innerHTML = successHtml;
           quickInquirySuccess.style.display = 'block';
           quickInquiryForm.reset();
         } else {
@@ -530,17 +542,8 @@ function initCrayonBoxApp() {
     }
   }
 
-  // Document-level event delegation ensures dynamically created or deep child elements trigger reliably
-  const bubbleClickSelector = '#btnCheckEligibility, .btn-primary, .btn-gold, .btn-green-whatsapp, .day-tab-btn, .facility-tab-btn, .subject-tab-btn, .faculty-tab-btn, .map-size-btn, .open-tour-modal, .open-360-modal, .btn-hero, .btn-outline, .diff-feature-item';
-  document.addEventListener('click', (e) => {
-    const trigger = e.target.closest(bubbleClickSelector);
-    if (!trigger) return;
-
-    const rect = trigger.getBoundingClientRect();
-    const x = (e.clientX && e.clientX > 0) ? e.clientX : (rect.left + rect.width / 2);
-    const y = (e.clientY && e.clientY > 0) ? e.clientY : (rect.top + rect.height / 2);
-    createBubbleBurst(x, y);
-  });
+  // Global click bubble bursts disabled for visual restraint & professional institution focus
+  // createBubbleBurst remains available for celebratory milestones if needed
 
   /* ==========================================================================
      11. ORIGINKIT ANIMATION 3: SCROLL TEXT HIGHLIGHT & DRY BRUSH REVEAL
@@ -796,7 +799,11 @@ function initCrayonBoxApp() {
             submitBtn.style.backgroundColor = '#166534';
           }
           if (inPageBookingSuccess) {
-            inPageBookingSuccess.innerHTML = `&#10004; <strong>Tour Scheduled!</strong> Booking Ref: <strong>${d.bookingRef || 'CONFIRMED'}</strong>. An admissions coordinator has reserved your slot and will call you with visitor pass details.`;
+            let msgHtml = `&#10004; <strong>Tour Scheduled!</strong> Booking Ref: <strong>${d.bookingRef || 'CONFIRMED'}</strong>. An admissions coordinator has reserved your slot and will call you with visitor pass details.`;
+            if (d.whatsappUrl) {
+              msgHtml += `<div style="margin-top:12px;"><a href="${d.whatsappUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:6px; background:#16A34A; color:#FFFFFF; padding:8px 16px; border-radius:6px; font-weight:600; font-size:0.84rem; text-decoration:none;">💬 Confirm Immediately via WhatsApp &rarr;</a></div>`;
+            }
+            inPageBookingSuccess.innerHTML = msgHtml;
             inPageBookingSuccess.style.display = 'block';
           }
           inPageBookingForm.reset();
