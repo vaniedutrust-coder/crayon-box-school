@@ -14,18 +14,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=3.1">
+  <link rel="stylesheet" href="styles.css?v=3.2">
 </head>
 <body class="page-404">
-
-  <!-- AMBIENT FLOATING LEAVES BACKGROUND -->
-  <div class="leaf-ambient-container" aria-hidden="true">
-    <span class="ambient-leaf leaf-1"></span>
-    <span class="ambient-leaf leaf-2"></span>
-    <span class="ambient-leaf leaf-3"></span>
-    <span class="ambient-leaf leaf-4"></span>
-    <span class="ambient-leaf leaf-5"></span>
-  </div>
 
   <!-- SITE HEADER / NAVIGATION -->
   <header class="site-header" id="top">
@@ -40,19 +31,17 @@
 
       <nav class="desktop-nav" aria-label="Main Navigation">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
         <a href="academics.html" class="nav-link">Academics</a>
-        <a href="student-life.html" class="nav-link">Student Life</a>
-        <a href="about.html" class="nav-link">About &amp; Faculty</a>
+        <a href="admissions.html" class="nav-link">Admissions</a>
         <a href="campus.html" class="nav-link">Campus</a>
-        <a href="gallery.html" class="nav-link">Gallery</a>
-        <a href="news-events.html" class="nav-link">News &amp; Calendar</a>
-        <a href="parents.html" class="nav-link">Parent Corner</a>
-        <a href="careers.html" class="nav-link">Careers</a>
+        <a href="student-life.html" class="nav-link">Student Life</a>
+        <a href="news-events.html" class="nav-link">News &amp; Events</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <a href="admissions.html#apply-now" class="btn btn-gold btn-sm">Admissions Open &rarr;</a>
+        <a href="admissions.html#apply-now" class="btn btn-gold btn-sm">Enquire Now &rarr;</a>
         <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
           <span></span><span></span><span></span>
         </button>
@@ -65,12 +54,12 @@
     <div class="mobile-drawer-content">
       <nav class="mobile-nav">
         <a href="index.html" class="mobile-link">Home</a>
+        <a href="about.html" class="mobile-link">About Us</a>
         <a href="academics.html" class="mobile-link">Academics</a>
-        <a href="student-life.html" class="mobile-link">Student Life</a>
-        <a href="about.html" class="mobile-link">About &amp; Faculty</a>
+        <a href="admissions.html" class="mobile-link">Admissions</a>
         <a href="campus.html" class="mobile-link">Campus</a>
-        <a href="gallery.html" class="mobile-link">Gallery</a>
-        <a href="news-events.html" class="mobile-link">News &amp; Calendar</a>
+        <a href="student-life.html" class="mobile-link">Student Life</a>
+        <a href="news-events.html" class="mobile-link">News &amp; Events</a>
         <a href="parents.html" class="mobile-link">Parent Corner</a>
         <a href="careers.html" class="mobile-link">Careers</a>
         <a href="contact.html" class="mobile-link">Contact</a>
@@ -81,101 +70,217 @@
     </div>
   </div>
 
-  <main id="main-content">
-    <section class="error-hero-section">
-      <div class="container">
-        <div class="error-hero-card">
+  <main id="main-content" class="detour-main">
+    
+    <!-- TOP SCENIC DETOUR HERO -->
+    <section class="detour-hero">
+      <div class="container detour-container">
+        
+        <!-- LEFT: 404 STORY & REDIRECT CONTROLS -->
+        <div class="detour-copy-col">
+          <div class="detour-oops-tag">OOPS!</div>
+
+          <!-- PLAYFUL TRICOLOR 404 WITH SPROUT & FLYING PLANE DOODLE -->
+          <div class="detour-404-art" aria-label="Error 404">
+            <svg class="detour-doodle-plane" viewBox="0 0 160 80" fill="none" aria-hidden="true">
+              <path d="M10,70 Q50,15 100,45 T145,20" stroke="#E5A93B" stroke-width="2.2" stroke-dasharray="5 5" fill="none"/>
+              <path d="M142,12 L158,22 L140,28 L145,21 Z" fill="#E5A93B"/>
+            </svg>
+
+            <div class="detour-digits-row">
+              <span class="detour-digit digit-gold">4</span>
+              <span class="detour-digit digit-navy">
+                0
+                <span class="sprout-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#48BB78" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22v-9" stroke="#48BB78"/>
+                    <path d="M12 13a5 5 0 0 0 7-5c-3 0-6 2-7 5z" fill="#9AE6B4" stroke="#38A169"/>
+                    <path d="M12 15a5 5 0 0 1-7-5c3 0 6 2 7 5z" fill="#9AE6B4" stroke="#38A169"/>
+                  </svg>
+                </span>
+              </span>
+              <span class="detour-digit digit-green">4</span>
+            </div>
+          </div>
+
+          <h1 class="detour-heading">This page seems to have taken a detour!</h1>
           
-          <div class="error-badge-row">
-            <span class="legal-badge gold">🖍️ 404 Navigation Error</span>
-            <span class="legal-badge">🌱 Lost in the Crayon Box</span>
-          </div>
-
-          <div class="error-crayon-illustration" aria-hidden="true">
-            🎨
-          </div>
-
-          <span class="error-code-badge">404</span>
-
-          <h1 class="error-hero-title">Oops! Looks like this crayon rolled off the page!</h1>
-          <p class="error-hero-subtitle">"Even our brightest little artists color outside the lines sometimes."</p>
-
-          <p class="error-hero-desc">
-            The page you are looking for may have been moved, renamed, or temporarily tucked away in our art supplies closet. Don’t worry — we are automatically bringing you back to learning, growing, and shining!
+          <p class="detour-subtext">
+            The page you’re looking for might have moved, been renamed, or doesn’t exist. Let’s get you back on the right path.
           </p>
 
-          <!-- AUTOMATIC HOMEPAGE REDIRECT CARD -->
-          <div class="redirect-card" id="redirectCard" role="region" aria-live="polite" aria-label="Automatic Redirect Notification">
-            <div class="redirect-status-row">
-              <span class="redirect-spinner" aria-hidden="true"></span>
-              <p class="redirect-status-text" id="redirectStatusText">
-                Redirecting you to our homepage in <span id="countdownNumber" class="redirect-countdown-badge">5</span> seconds...
-              </p>
-            </div>
+          <!-- DUAL ACTION BUTTONS (WITH EMBEDDED LIVE COUNTDOWN) -->
+          <div class="detour-actions-row">
+            <a href="index.html" class="btn-detour-home" id="immediateHomeBtn">
+              <span class="btn-detour-icon">🏠</span>
+              <span>Go to Homepage</span>
+              <span class="detour-countdown-pill" id="countdownPill">5s</span>
+            </a>
 
-            <div class="redirect-progress-wrapper" role="progressbar" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5" aria-label="Redirect countdown progress">
-              <div class="redirect-progress-bar" id="progressBar" style="width: 100%;"></div>
-            </div>
-
-            <div class="redirect-controls">
-              <a href="index.html" class="btn btn-primary" id="immediateHomeBtn">🏠 Go to Homepage Now</a>
-              <button type="button" class="btn btn-outline" id="pauseRedirectBtn">⏸️ Stay on this Page</button>
-              <a href="admissions.html" class="btn btn-gold">📋 Admissions Open &rarr;</a>
-            </div>
-
-            <p class="redirect-hint" id="redirectHint">
-              Want to explore this page or copy school details? Click <strong>"Stay on this Page"</strong> to pause redirect.
-            </p>
-
-            <div>
-              <a href="tel:+919811102008" class="redirect-help-contact">
-                <span>📞 Need Immediate Assistance?</span>
-                <strong>+91 98111 02008</strong>
-              </a>
-            </div>
+            <button type="button" class="btn-detour-back" id="goBackBtn" onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href = 'index.html'; }">
+              <span class="btn-detour-icon">&larr;</span>
+              <span>Go Back</span>
+            </button>
           </div>
 
-          <div style="border-top: 1px solid rgba(6, 36, 76, 0.08); padding-top: 32px; margin-top: 24px;">
-            <h2 class="error-quick-links-title">Quick Wayfinders across Campus</h2>
-            <div class="error-quick-grid">
-              <a href="academics.html" class="error-quick-card">
-                <span class="card-icon">🎓</span>
-                <span>Academics &amp; Curriculum</span>
-              </a>
-              <a href="admissions.html" class="error-quick-card">
-                <span class="card-icon">📋</span>
-                <span>Admissions 2026–27</span>
-              </a>
-              <a href="student-life.html" class="error-quick-card">
-                <span class="card-icon">🏆</span>
-                <span>Student Life &amp; Houses</span>
-              </a>
-              <a href="campus.html" class="error-quick-card">
-                <span class="card-icon">🌳</span>
-                <span>3-Acre Green Campus</span>
-              </a>
-              <a href="parents.html" class="error-quick-card">
-                <span class="card-icon">📱</span>
-                <span>Parent Portal &amp; ERP</span>
-              </a>
-              <a href="gallery.html" class="error-quick-card">
-                <span class="card-icon">📸</span>
-                <span>Photo &amp; Video Gallery</span>
-              </a>
-              <a href="news-events.html" class="error-quick-card">
-                <span class="card-icon">📰</span>
-                <span>News &amp; Calendar</span>
-              </a>
-              <a href="mandatory-disclosure.html" class="error-quick-card">
-                <span class="card-icon">📜</span>
-                <span>CBSE Disclosures</span>
-              </a>
-            </div>
+          <!-- REDIRECT STATUS BAR & HELPLINE -->
+          <div class="detour-timer-bar">
+            <span class="detour-pulse-dot" id="pulseDot" aria-hidden="true"></span>
+            <span class="detour-timer-status" id="redirectStatusText">
+              Redirecting to homepage in <strong id="countdownNumber">5</strong> seconds...
+            </span>
+            <button type="button" class="btn-detour-pause" id="pauseRedirectBtn">⏸️ Pause</button>
           </div>
+
+          <div class="detour-helpline-inline">
+            <span>Need admissions help? Call</span>
+            <a href="tel:+919811102008" class="helpline-link"><strong>+91 98111 02008</strong></a>
+            <span>or email</span>
+            <a href="mailto:info@crayonboxschool.com" class="helpline-link">info@crayonboxschool.com</a>
+          </div>
+        </div>
+
+        <!-- RIGHT: LITTLE EXPLORERS & TRAIL SIGNPOST SCENE -->
+        <div class="detour-visual-col">
+          <div class="detour-visual-stage">
+            <img src="404-explorers.png" 
+                 alt="Crayon Box School students exploring outdoors with binoculars, treasure map, and directional signpost pointing toward Learning, Discovery, Friendship, and Bright Futures" 
+                 class="detour-explorers-img" 
+                 width="579" 
+                 height="462"
+                 loading="eager">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ORGANIC WAVY TRANSITION DIVIDER -->
+    <div class="detour-wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 64" fill="none" preserveAspectRatio="none">
+        <path d="M0,24 C320,64 640,0 960,38 C1200,60 1360,18 1440,24 L1440,64 L0,64 Z" fill="#FCFAF6"/>
+      </svg>
+    </div>
+
+    <!-- LOWER SECTION: POPULAR EXPLORE PAGES (6 CLEAN CARDS) -->
+    <section class="detour-popular-section">
+      <div class="container">
+        
+        <div class="detour-popular-header">
+          <h2 class="detour-popular-title">Or explore popular pages</h2>
+        </div>
+
+        <div class="detour-cards-grid">
+          
+          <!-- Card 1: About Our School -->
+          <a href="about.html" class="detour-nav-card card-about">
+            <div class="card-icon-box icon-home">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">About Us</h3>
+              <p class="card-desc">Our story and values</p>
+            </div>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+
+          <!-- Card 2: Academics -->
+          <a href="academics.html" class="detour-nav-card card-academics">
+            <div class="card-icon-box icon-grad">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Academics</h3>
+              <p class="card-desc">Our learning approach</p>
+            </div>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+
+          <!-- Card 3: Admissions -->
+          <a href="admissions.html" class="detour-nav-card card-admissions">
+            <div class="card-icon-box icon-doc">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Admissions</h3>
+              <p class="card-desc">Begin your journey</p>
+            </div>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+
+          <!-- Card 4: Campus -->
+          <a href="campus.html" class="detour-nav-card card-campus">
+            <div class="card-icon-box icon-campus">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+                <line x1="9" y1="22" x2="9" y2="2"/>
+                <line x1="8" y1="6" x2="8.01" y2="6"/>
+                <line x1="16" y1="6" x2="16.01" y2="6"/>
+                <line x1="8" y1="10" x2="8.01" y2="10"/>
+                <line x1="16" y1="10" x2="16.01" y2="10"/>
+                <line x1="8" y1="14" x2="8.01" y2="14"/>
+                <line x1="16" y1="14" x2="16.01" y2="14"/>
+                <line x1="8" y1="18" x2="8.01" y2="18"/>
+                <line x1="16" y1="18" x2="16.01" y2="18"/>
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Campus</h3>
+              <p class="card-desc">Explore our facilities</p>
+            </div>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+
+          <!-- Card 5: Student Life -->
+          <a href="student-life.html" class="detour-nav-card card-life">
+            <div class="card-icon-box icon-life">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Student Life</h3>
+              <p class="card-desc">Learning beyond classrooms</p>
+            </div>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+
+          <!-- Card 6: News & Events -->
+          <a href="news-events.html" class="detour-nav-card card-news">
+            <div class="card-icon-box icon-cal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">News &amp; Events</h3>
+              <p class="card-desc">What’s happening at Crayon Box</p>
+            </div>
+            <span class="card-arrow" aria-hidden="true">&rarr;</span>
+          </a>
 
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- ==========================================================================
@@ -304,21 +409,15 @@
       var remaining = TOTAL_SECONDS;
       var isPaused = false;
       var countdownEl = document.getElementById('countdownNumber');
-      var progressBar = document.getElementById('progressBar');
+      var countdownPill = document.getElementById('countdownPill');
       var statusText = document.getElementById('redirectStatusText');
       var pauseBtn = document.getElementById('pauseRedirectBtn');
-      var redirectCard = document.getElementById('redirectCard');
-      var redirectHint = document.getElementById('redirectHint');
+      var pulseDot = document.getElementById('pulseDot');
       var timer = null;
 
       function updateUI() {
-        if (countdownEl) {
-          countdownEl.textContent = remaining;
-        }
-        if (progressBar) {
-          var percentage = Math.max(0, (remaining / TOTAL_SECONDS) * 100);
-          progressBar.style.width = percentage + '%';
-        }
+        if (countdownEl) countdownEl.textContent = remaining;
+        if (countdownPill) countdownPill.textContent = remaining + 's';
       }
 
       function startCountdown() {
@@ -330,10 +429,7 @@
 
           if (remaining <= 0) {
             clearInterval(timer);
-            if (statusText) {
-              statusText.innerHTML = 'Taking you to homepage now...';
-            }
-            // Seamless client redirect to homepage
+            if (statusText) statusText.textContent = 'Redirecting to homepage now...';
             window.location.replace('/');
           }
         }, 1000);
@@ -342,33 +438,25 @@
       if (pauseBtn) {
         pauseBtn.addEventListener('click', function() {
           if (!isPaused) {
-            // Pause redirect
             isPaused = true;
             if (timer) clearInterval(timer);
-            redirectCard.classList.add('paused');
-            pauseBtn.textContent = '▶️ Resume Redirect';
-            statusText.innerHTML = '<span>Automatic redirect paused.</span>';
-            if (redirectHint) {
-              redirectHint.innerHTML = 'Redirect is currently on hold. Explore our school programs below, or click <strong>"Go to Homepage Now"</strong> anytime.';
-            }
+            pauseBtn.textContent = '▶️ Resume';
+            if (pulseDot) pulseDot.classList.add('paused');
+            if (statusText) statusText.textContent = 'Automatic redirect paused.';
+            if (countdownPill) countdownPill.textContent = 'Paused';
           } else {
-            // Resume redirect
             isPaused = false;
             remaining = TOTAL_SECONDS;
             updateUI();
-            redirectCard.classList.remove('paused');
-            pauseBtn.textContent = '⏸️ Stay on this Page';
-            statusText.innerHTML = 'Redirecting you to our homepage in <span id="countdownNumber" class="redirect-countdown-badge">' + remaining + '</span> seconds...';
+            pauseBtn.textContent = '⏸️ Pause';
+            if (pulseDot) pulseDot.classList.remove('paused');
+            if (statusText) statusText.innerHTML = 'Redirecting to homepage in <strong id="countdownNumber">' + remaining + '</strong> seconds...';
             countdownEl = document.getElementById('countdownNumber');
-            if (redirectHint) {
-              redirectHint.innerHTML = 'Want to explore this page or copy school details? Click <strong>"Stay on this Page"</strong> to pause redirect.';
-            }
             startCountdown();
           }
         });
       }
 
-      // Initialize countdown on DOM load
       updateUI();
       startCountdown();
     })();

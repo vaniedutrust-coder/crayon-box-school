@@ -25,6 +25,7 @@ npm-debug.log*
 *.png
 !cb-logo-circular.png
 !cb logo.png
+!404-explorers.png
 
 # Temporary Scratch Files
 scratch/
