@@ -13,7 +13,15 @@ function initCrayonBoxApp() {
   const mobileLinks = document.querySelectorAll('.mobile-link');
 
   if (mobileMenuBtn && mobileDrawer) {
+    function updateDrawerPosition() {
+      const header = document.querySelector('.site-header');
+      if (header) {
+        mobileDrawer.style.top = header.offsetHeight + 'px';
+      }
+    }
+
     mobileMenuBtn.addEventListener('click', () => {
+      updateDrawerPosition();
       const isOpen = mobileDrawer.classList.toggle('open');
       mobileMenuBtn.setAttribute('aria-expanded', isOpen);
     });
@@ -23,6 +31,12 @@ function initCrayonBoxApp() {
         mobileDrawer.classList.remove('open');
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    window.addEventListener('resize', () => {
+      if (mobileDrawer.classList.contains('open')) {
+        updateDrawerPosition();
+      }
     });
   }
 
@@ -63,16 +77,20 @@ function initCrayonBoxApp() {
   // Open Tour Modal
   tourButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(tourModal);
+      if (tourModal) {
+        e.preventDefault();
+        openModal(tourModal);
+      }
     });
   });
 
   // Open Enquiry Modal
   enquiryButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(enquiryModal);
+      if (enquiryModal) {
+        e.preventDefault();
+        openModal(enquiryModal);
+      }
     });
   });
 

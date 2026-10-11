@@ -904,44 +904,53 @@ const server = http.createServer(async (req, res) => {
 </head>
 <body>
 
-  <!-- TOP NOTICE BAR -->
-  <aside class="top-notice-bar" aria-label="Announcement">
-    <div class="container notice-inner">
-      <div class="notice-text">
-        <span class="sparkle">&#10024;</span>
-        <strong>Admissions Open 2026&ndash;27:</strong> Toddlers to Grade 8 &bull; Experience holistic experiential education.
-      </div>
-      <div class="notice-actions">
-        <a href="admissions.html" class="notice-link">Register Online &rarr;</a>
+  <!-- NAVIGATION HEADER -->
+  <header class="site-header" id="top">
+    <!-- TOP FLOATING ANNOUNCEMENT BANNER -->
+    <div class="top-floating-banner-wrap">
+      <div class="top-floating-banner">
+        <div class="banner-left">
+          <span class="banner-pill-badge"><span class="sparkle-icon">✨</span> Admissions 2026–27 Open</span>
+          <span class="banner-message"><span>Now Enrolling: Nursery through Class 8</span><span class="banner-msg-secondary"> &bull; 3-Acre Green Nature Campus, Burari &bull; Guided Campus Walkthroughs Mon&ndash;Sat</span></span>
+        </div>
+        <div class="banner-right">
+          <a href="tel:+919811102008" class="banner-tel-link" aria-label="Admissions Helpline: +91 98111 02008">
+            <span class="tel-icon">📞</span> +91 98111 02008
+          </a>
+          <a href="admissions.html" class="banner-btn-tour open-tour-modal" aria-label="Book a personalized school tour">Book Visit →</a>
+        </div>
       </div>
     </div>
-  </aside>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="site-header" id="mainHeader">
-    <div class="container header-inner">
-      <a href="index.html" class="brand-link" aria-label="Crayon Box School Home">
-        <img src="cb-logo-circular.png" alt="Crayon Box Crest" class="brand-crest" width="56" height="56">
+    <!-- MAIN NAVBAR -->
+    <div class="header-inner container">
+      <a href="index.html" class="brand-link" aria-label="Crayon Box School Homepage">
+        <img src="cb-logo-circular.png" alt="Crayon Box School Crest" class="brand-logo" width="48" height="48">
         <div class="brand-text">
           <span class="brand-name">Crayon Box School</span>
-          <span class="brand-tagline">Learn &bull; Grow &bull; Shine</span>
+          <span class="brand-motto">Learn · Grow · Shine</span>
         </div>
       </a>
 
-      <nav class="main-nav" aria-label="Main Navigation">
-        <ul class="nav-list">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About Us</a></li>
-          <li><a href="academics.html" class="nav-link">Academics</a></li>
-          <li><a href="admissions.html" class="nav-link">Admissions</a></li>
-          <li><a href="campus.html" class="nav-link">Campus</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="academics.html" class="nav-link">Academics</a>
+        <a href="student-life.html" class="nav-link">Student Life</a>
+        <a href="about.html" class="nav-link">About &amp; Faculty</a>
+        <a href="campus.html" class="nav-link">Campus</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="admissions.html" class="nav-link">Admissions</a>
+        <a href="news-events.html" class="nav-link">News &amp; Calendar</a>
+        <a href="parents.html" class="nav-link">Parent Corner</a>
+        <a href="careers.html" class="nav-link">Careers</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <a href="admissions.html" class="btn btn-gold btn-sm">Admissions Open &rarr;</a>
-        <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">&#9776;</button>
+        <a href="admissions.html" class="btn btn-gold btn-sm" aria-label="Admissions Open 2026–27">Admissions Open →</a>
+        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu" type="button">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>

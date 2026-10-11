@@ -268,6 +268,144 @@ button {
 }
 
 /* ==========================================================================
+   00 — FLOATING TOP ANNOUNCEMENT BANNER
+   ========================================================================== */
+.top-floating-banner-wrap {
+  width: 100%;
+  padding: 8px 16px 4px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 102;
+}
+
+.top-floating-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1360px;
+  background: linear-gradient(135deg, #051A38 0%, #0B2C58 52%, #071E3D 100%);
+  border: 1px solid rgba(240, 179, 36, 0.45);
+  border-radius: 9999px;
+  padding: 5px 14px 5px 12px;
+  box-shadow: 0 4px 18px rgba(5, 26, 56, 0.22), 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #FFFFFF;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.top-floating-banner:hover {
+  border-color: rgba(240, 179, 36, 0.8);
+  box-shadow: 0 6px 22px rgba(5, 26, 56, 0.3), 0 0 12px rgba(240, 179, 36, 0.2);
+}
+
+.top-floating-banner .banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.banner-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(240, 179, 36, 0.24), rgba(240, 179, 36, 0.08));
+  border: 1px solid rgba(240, 179, 36, 0.6);
+  color: #FBD76B;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  box-shadow: 0 0 8px rgba(240, 179, 36, 0.2);
+  flex-shrink: 0;
+}
+
+.sparkle-icon {
+  display: inline-block;
+  animation: bannerSparkle 2.5s infinite ease-in-out;
+}
+
+@keyframes bannerSparkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+  50% { transform: scale(1.22) rotate(10deg); opacity: 1; filter: drop-shadow(0 0 4px #F0B324); }
+}
+
+.banner-message {
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
+}
+
+.banner-message strong {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.top-floating-banner .banner-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.banner-tel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.banner-tel-link:hover {
+  color: #FBD76B;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.banner-btn-tour {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #F0B324 0%, #D49B1A 100%);
+  color: #06244C !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(240, 179, 36, 0.35);
+  transition: all 0.2s ease;
+}
+
+.banner-btn-tour:hover {
+  background: linear-gradient(135deg, #FFC53D 0%, #E0A622 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(240, 179, 36, 0.5);
+  color: #041833 !important;
+}
+
+/* ==========================================================================
    HEADER NAVIGATION
    ========================================================================== */
 .site-header {
@@ -275,12 +413,13 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(250, 247, 242, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(232, 223, 200, 0.6);
+  background-color: rgba(250, 247, 242, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(224, 214, 192, 0.7);
+  box-shadow: 0 2px 10px rgba(6, 36, 76, 0.04);
   z-index: 100;
-  transition: var(--transition);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .header-inner,
@@ -288,20 +427,25 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 78px;
+  height: 68px;
+  gap: 16px;
 }
 
 .brand-link {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
-.brand-logo {
-  width: 50px;
-  height: 50px;
+.brand-logo,
+.brand-crest {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
   filter: drop-shadow(0 2px 4px rgba(6, 36, 76, 0.12));
 }
 
@@ -317,30 +461,36 @@ button {
   color: var(--navy);
   line-height: 1.1;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
-.brand-motto {
+.brand-motto,
+.brand-sub,
+.brand-tagline {
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--gold-dark);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 1.2vw, 16px);
+  gap: clamp(8px, 1.1vw, 15px);
   white-space: nowrap;
 }
 
 .nav-link {
-  font-size: clamp(0.82rem, 0.92vw, 0.88rem);
+  font-size: clamp(0.81rem, 0.88vw, 0.88rem);
   font-weight: 500;
   color: var(--text-main);
   position: relative;
-  padding: 6px 0;
+  padding: 6px 1px;
   white-space: nowrap;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 .nav-link:hover, .nav-link.active {
   color: var(--magenta);
@@ -359,19 +509,24 @@ button {
   width: 100%;
 }
 
-@media (max-width: 1250px) and (min-width: 1025px) {
+@media (max-width: 1320px) and (min-width: 1181px) {
   .desktop-nav {
-    gap: 10px;
+    gap: 7px;
   }
   .nav-link {
-    font-size: 0.82rem;
+    font-size: 0.79rem;
+    padding: 5px 0;
+  }
+  .brand-name {
+    font-size: 1.15rem;
   }
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .mobile-toggle {
@@ -401,13 +556,16 @@ button {
 /* Mobile Drawer */
 .mobile-drawer {
   position: fixed;
-  top: 78px;
+  top: 104px;
   left: 0;
   right: 0;
   background-color: #FFFFFF;
   border-bottom: 2px solid var(--cream-border);
   box-shadow: var(--shadow-lg);
   padding: 24px;
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transform: translateY(-120%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 99;
@@ -2054,6 +2212,26 @@ button {
 /* ==========================================================================
    RESPONSIVE MEDIA QUERIES
    ========================================================================== */
+@media (max-width: 1180px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-toggle,
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .header-actions .btn-sm {
+    display: inline-flex !important;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -2118,13 +2296,22 @@ button {
   .desktop-nav {
     display: none;
   }
-  .header-actions .btn,
-  .header-actions .btn-sm,
-  .header-actions .btn-header {
-    display: none;
-  }
-  .mobile-toggle {
+  .mobile-toggle,
+  .mobile-menu-toggle {
     display: flex;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .header-actions .btn-sm {
+    display: inline-flex;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
+  .top-floating-banner .banner-tel-link {
+    display: none;
   }
 }
 
@@ -2132,17 +2319,37 @@ button {
   .desktop-nav {
     display: none;
   }
-  .header-actions .btn,
-  .header-actions .btn-sm,
-  .header-actions .btn-header {
-    display: none;
+  .mobile-toggle,
+  .mobile-menu-toggle {
+    display: flex;
   }
   .header-actions {
     display: flex;
     align-items: center;
+    gap: 8px;
   }
-  .mobile-toggle {
-    display: flex;
+  .header-actions .btn-sm {
+    display: inline-flex;
+    padding: 5px 12px;
+    font-size: 0.74rem;
+  }
+  .top-floating-banner-wrap {
+    padding: 6px 10px 2px;
+  }
+  .top-floating-banner {
+    padding: 4px 10px;
+    gap: 8px;
+  }
+  .banner-pill-badge {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+  }
+  .banner-message {
+    font-size: 0.75rem;
+  }
+  .banner-btn-tour {
+    font-size: 0.70rem;
+    padding: 3px 10px;
   }
 
   .hero-visual {
@@ -2220,6 +2427,76 @@ button {
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .top-floating-banner-wrap {
+    padding: 6px 10px 2px;
+  }
+  .top-floating-banner {
+    padding: 4px 10px;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  .banner-message {
+    display: none;
+  }
+  .banner-pill-badge {
+    font-size: 0.70rem;
+    padding: 3px 8px;
+  }
+  .banner-btn-tour {
+    padding: 4px 10px;
+    font-size: 0.70rem;
+  }
+  .site-header .header-inner,
+  .site-header .header-container {
+    height: 58px;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    gap: 8px;
+  }
+  .brand-link {
+    gap: 8px;
+  }
+  .brand-logo,
+  .brand-crest {
+    width: 36px;
+    height: 36px;
+  }
+  .brand-name {
+    font-size: 0.98rem;
+  }
+  .brand-motto,
+  .brand-sub,
+  .brand-tagline {
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+  .header-actions .btn-sm {
+    padding: 5px 8px;
+    font-size: 0.72rem;
+  }
+  .mobile-toggle,
+  .mobile-menu-toggle {
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-name {
+    font-size: 0.90rem;
+  }
+  .header-actions .btn-sm {
+    padding: 4px 6px;
+    font-size: 0.68rem;
   }
 }
 
@@ -7045,6 +7322,7 @@ button {
   padding-right: clamp(20px, 3.5vw, 80px) !important;
 }
 
+.top-floating-banner-wrap,
 .announcement-banner {
   width: 100%;
 }
