@@ -27,9 +27,13 @@ npm-debug.log*
 !cb logo.png
 !404-explorers.png
 
+# Raw Photo Uploads (Uncompressed source files)
+school photo/
+school photos/
+*.mp4
+*.mov
+
 # Temporary Scratch Files
 scratch/
 archive_artifacts/
 *.log
-.vercel
-.env*
