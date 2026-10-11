@@ -252,14 +252,14 @@ const server = http.createServer(async (req, res) => {
 
       try {
         const body = await readBodyJson(req, 2 * 1024 * 1024);
-        const studentName = sanitizeText(body.studentName || body.student_name);
+        const studentName = sanitizeText(body.studentName || body.student_name || body.childName || body.child_name) || sanitizeText(body.parentName || body.parent_name) || 'Applicant';
         const parentName = sanitizeText(body.parentName || body.parent_name);
-        const phone = sanitizeText(body.phone || body.parent_phone);
-        const grade = sanitizeText(body.grade || body.grade_applied);
+        const phone = sanitizeText(body.phone || body.parent_phone || body.mobile);
+        const grade = sanitizeText(body.grade || body.grade_applied || body.childGrade || body.child_grade) || 'Kindergarten';
         const email = sanitizeText(body.email || body.parent_email);
         const notes = sanitizeText(body.notes || body.message || body.counselor_notes);
-        if (!studentName || !parentName || !phone || !grade) {
-          return sendJson(res, 400, { success: false, error: 'Please provide all mandatory fields.' }, true);
+        if (!parentName || !phone) {
+          return sendJson(res, 400, { success: false, error: 'Please provide parent name and contact number.' }, true);
         }
         const appNo = queries.createAdmission({
           studentName,
@@ -310,15 +310,15 @@ const server = http.createServer(async (req, res) => {
       try {
         const body = await readBodyJson(req, 2 * 1024 * 1024);
         const parentName = sanitizeText(body.parentName || body.parent_name);
-        const phone = sanitizeText(body.phone || body.parent_phone);
-        const date = sanitizeText(body.date || body.tour_date);
-        const timeSlot = sanitizeText(body.timeSlot || body.tour_time);
+        const phone = sanitizeText(body.phone || body.parent_phone || body.mobile);
+        const date = sanitizeText(body.date || body.tour_date || body.tourDate) || new Date().toISOString().split('T')[0];
+        const timeSlot = sanitizeText(body.timeSlot || body.tour_time || body.tourTime) || 'Morning 10:00 AM';
         const email = sanitizeText(body.email || body.parent_email);
-        const grade = sanitizeText(body.grade || body.child_grade);
+        const grade = sanitizeText(body.grade || body.child_grade || body.childGrade) || 'Kindergarten';
         const attendees = Number(body.attendees) || 2;
         const notes = sanitizeText(body.notes || body.message);
-        if (!parentName || !phone || !date || !timeSlot) {
-          return sendJson(res, 400, { success: false, error: 'Please specify parent name, contact, date, and preferred time slot.' }, true);
+        if (!parentName || !phone) {
+          return sendJson(res, 400, { success: false, error: 'Please specify parent name and contact phone number.' }, true);
         }
         const bookingRef = queries.createTour({
           parentName,
