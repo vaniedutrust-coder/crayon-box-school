@@ -141,9 +141,9 @@ button {
 .leaf-5 { top: 22%; right: 28%; animation-duration: 34s; animation-delay: -8s; transform: rotate(45deg); }
 
 @keyframes leafFloat {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
-  50% { transform: translateY(35px) rotate(18deg); opacity: 0.55; }
-  100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
+  50% { transform: translateY(28px) rotate(14deg); opacity: 0.28; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
 }
 
 /* Buttons */
