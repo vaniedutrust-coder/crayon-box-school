@@ -26,6 +26,9 @@ npm-debug.log*
 !cb-logo-circular.png
 !cb logo.png
 !404-explorers.png
+!favicon*.png
+!apple-touch-icon.png
+!android-chrome*.png
 
 # Raw Photo Uploads (Uncompressed source files)
 school photo/
