@@ -14,3 +14,9 @@ school.db
 *.db
 *.sqlite
 DEPLOYMENT.md
+school photo/
+school photos/
+*.mov
+*.MOV
+*.mp4
+*.MP4
