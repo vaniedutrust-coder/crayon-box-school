@@ -145,23 +145,42 @@ function initCrayonBoxApp() {
   }
 
   /* ==========================================================================
-     4. FORM SUBMISSION DEMO FEEDBACK
+     4. FORM SUBMISSION DEMO FEEDBACK (UNIFIED SHARED ENQUIRY & TOUR PIPELINE)
      ========================================================================== */
-  const tourForm = document.getElementById('tourForm');
-  const tourSuccess = document.getElementById('tourSuccess');
-  if (tourForm && tourSuccess) {
+  const tourForms = document.querySelectorAll('#tourForm, #tourBookingForm, #campusTourForm');
+  tourForms.forEach(tourForm => {
     tourForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = tourForm.querySelector('button[type="submit"]');
       const origText = submitBtn ? submitBtn.innerHTML : '';
-      if (submitBtn) { submitBtn.innerHTML = 'Reserving Slot...'; submitBtn.disabled = true; }
 
-      const parentName = document.getElementById('tourParentName')?.value || 'Parent';
-      const phone = document.getElementById('tourPhone')?.value || '';
-      const email = document.getElementById('tourEmail')?.value || '';
-      const grade = document.getElementById('tourChildGrade')?.value || 'Kindergarten';
-      const date = document.getElementById('tourDate')?.value || new Date().toISOString().split('T')[0];
-      const timeSlot = document.getElementById('tourTime')?.value || 'Morning 10:00 AM';
+      const parentName = tourForm.querySelector('#tourParentName')?.value || 'Parent';
+      const phoneInput = tourForm.querySelector('#tourPhone');
+      const phone = phoneInput?.value || '';
+      const email = tourForm.querySelector('#tourEmail')?.value || '';
+      const grade = tourForm.querySelector('#tourChildGrade')?.value || 'Kindergarten';
+      const dateInput = tourForm.querySelector('#tourDate');
+      const date = dateInput?.value || new Date().toISOString().split('T')[0];
+      const timeSlot = tourForm.querySelector('#tourTime')?.value || 'Morning 10:00 AM';
+
+      // Phone validation (minimum 10 digits)
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        alert('Please enter a valid 10-digit mobile number for appointment confirmation.');
+        if (phoneInput) phoneInput.focus();
+        return;
+      }
+
+      // Find or create tourSuccess container
+      let tourSuccess = tourForm.parentElement.querySelector('#tourSuccess, .form-success-msg');
+      if (!tourSuccess) {
+        tourSuccess = document.createElement('div');
+        tourSuccess.className = 'form-success-msg';
+        tourSuccess.id = 'tourSuccess';
+        tourForm.parentElement.appendChild(tourSuccess);
+      }
+
+      if (submitBtn) { submitBtn.innerHTML = 'Reserving Slot...'; submitBtn.disabled = true; }
 
       try {
         const res = await fetch('/api/tours/book', {
@@ -170,11 +189,11 @@ function initCrayonBoxApp() {
           body: JSON.stringify({ parentName, phone, email, grade, date, timeSlot, attendees: 2 })
         });
         const d = await res.json();
-        if (d.success) {
+        if (d && d.success) {
           let tourSuccessHtml = `
             <div style="text-align: center; padding: 16px;">
               <h4 style="color: #2E7D32; font-size: 1.15rem; margin-bottom: 6px;">&#10004; Walkthrough Confirmed!</h4>
-              <p style="font-size: 0.9rem; color: var(--navy); margin-bottom: 4px;">Booking Ref: <strong>${d.bookingRef}</strong></p>
+              <p style="font-size: 0.9rem; color: var(--navy); margin-bottom: 4px;">Booking Ref: <strong>${d.bookingRef || 'CONFIRMED'}</strong></p>
               <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">We look forward to welcoming your family on ${date}.</p>
           `;
           if (d.whatsappUrl) {
@@ -183,19 +202,33 @@ function initCrayonBoxApp() {
           tourSuccessHtml += `</div>`;
           tourSuccess.innerHTML = tourSuccessHtml;
           tourSuccess.classList.add('show');
+          tourSuccess.style.display = 'block';
           tourForm.reset();
           setTimeout(() => {
             tourSuccess.classList.remove('show');
+            tourSuccess.style.display = '';
             closeAllModals();
             if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
           }, 6000);
+        } else {
+          alert('Booking error: ' + (d.error || 'Please check your inputs'));
+          if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
         }
       } catch (err) {
         console.error(err);
+        let tourSuccessHtml = `
+          <div style="text-align: center; padding: 14px; background: #FEF2F2; border-radius: 8px;">
+            <p style="color: #B91C1C; font-size: 0.9rem; margin-bottom: 8px;">Unable to reach booking server right now.</p>
+            <a href="https://wa.me/919811102008?text=Hello%20Crayon%20Box%20School%2C%20I%20would%20like%20to%20book%20a%20campus%20walkthrough%20for%20my%20child." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #FFFFFF; padding: 6px 14px; border-radius: 6px; font-weight: 600; font-size: 0.82rem; text-decoration: none;">💬 Book Instantly via WhatsApp Desk &rarr;</a>
+          </div>
+        `;
+        tourSuccess.innerHTML = tourSuccessHtml;
+        tourSuccess.classList.add('show');
+        tourSuccess.style.display = 'block';
         if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
       }
     });
-  }
+  });
 
   const enquiryForm = document.getElementById('enquiryForm');
   const enquirySuccess = document.getElementById('enquirySuccess');
@@ -204,27 +237,39 @@ function initCrayonBoxApp() {
       e.preventDefault();
       const submitBtn = enquiryForm.querySelector('button[type="submit"]');
       const origText = submitBtn ? submitBtn.innerHTML : '';
-      if (submitBtn) { submitBtn.innerHTML = 'Submitting Enquiry...'; submitBtn.disabled = true; }
 
       const parentName = document.getElementById('enquiryParentName')?.value || document.getElementById('enquiryParent')?.value || 'Parent';
       const studentName = document.getElementById('enquiryStudentName')?.value || document.getElementById('enquiryStudent')?.value || 'Student';
-      const phone = document.getElementById('enquiryPhone')?.value || '';
+      const phoneInput = document.getElementById('enquiryPhone');
+      const phone = phoneInput?.value || '';
       const email = document.getElementById('enquiryEmail')?.value || 'info@crayonboxschool.com';
       const grade = document.getElementById('enquiryGrade')?.value || 'Kindergarten';
+      const message = document.getElementById('enquiryMessage')?.value || '';
+
+      // Phone validation (minimum 10 digits)
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        alert('Please enter a valid 10-digit mobile number for admissions enquiry.');
+        if (phoneInput) phoneInput.focus();
+        return;
+      }
+
+      if (submitBtn) { submitBtn.innerHTML = 'Submitting Enquiry...'; submitBtn.disabled = true; }
 
       try {
         const res = await fetch('/api/admissions/apply', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ parentName, studentName, phone, email, grade })
+          body: JSON.stringify({ parentName, studentName, phone, email, grade, message })
         });
         const d = await res.json();
-        if (d.success) {
+        if (d && d.success) {
           enquirySuccess.innerHTML = `
             <div style="text-align: center; padding: 16px;">
               <h4 style="color: #2E7D32; font-size: 1.15rem; margin-bottom: 6px;">&#10004; Enquiry Submitted!</h4>
               <p style="font-size: 0.9rem; color: var(--navy); margin-bottom: 4px;">Application Ref: <strong>${d.appNo}</strong></p>
-              <p style="font-size: 0.8rem; color: var(--text-muted);">Our admissions counselor will contact you within 24 hours.</p>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">Our admissions counselor will contact you within 24 hours.</p>
+              ${d.whatsappUrl ? `<a href="${d.whatsappUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #FFFFFF; padding: 6px 14px; border-radius: 6px; font-weight: 600; font-size: 0.82rem; text-decoration: none;">💬 Connect via WhatsApp &rarr;</a>` : ''}
             </div>
           `;
           enquirySuccess.classList.add('show');
@@ -233,10 +278,20 @@ function initCrayonBoxApp() {
             enquirySuccess.classList.remove('show');
             closeAllModals();
             if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
-          }, 4000);
+          }, 5000);
+        } else {
+          alert('Enquiry submission error: ' + (d.error || 'Please check your inputs'));
+          if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
         }
       } catch (err) {
         console.error(err);
+        enquirySuccess.innerHTML = `
+          <div style="text-align: center; padding: 14px; background: #FEF2F2; border-radius: 8px;">
+            <p style="color: #B91C1C; font-size: 0.9rem; margin-bottom: 8px;">Unable to reach admissions server right now.</p>
+            <a href="https://wa.me/919811102008?text=Hello%20Crayon%20Box%20School%2C%20I%20would%20like%20to%20enquire%20about%20admissions%20for%20my%20child." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #FFFFFF; padding: 6px 14px; border-radius: 6px; font-weight: 600; font-size: 0.82rem; text-decoration: none;">💬 Chat Directly with Admissions on WhatsApp &rarr;</a>
+          </div>
+        `;
+        enquirySuccess.classList.add('show');
         if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
       }
     });
@@ -388,10 +443,22 @@ function initCrayonBoxApp() {
         locality: document.getElementById('admLocality')?.value || '',
         studentName: document.getElementById('admChildName')?.value || '',
         dob: document.getElementById('admDOB')?.value || '',
-        grade: document.getElementById('admTargetGrade')?.value || 'Grade 1',
-        previousSchool: document.getElementById('admPrevSchool')?.value || '',
-        notes: document.getElementById('admSpecialNeeds')?.value || ''
+        grade: document.getElementById('admTargetGrade')?.value || 'Nursery',
+        gender: document.getElementById('admGender')?.value || '',
+        busRequired: document.getElementById('admBusRequired')?.value || 'No',
+        occupation: document.getElementById('admOccupation')?.value || '',
+        previousSchool: document.getElementById('admPreviousSchool')?.value || document.getElementById('admPrevSchool')?.value || '',
+        notes: document.getElementById('admMessage')?.value || document.getElementById('admSpecialNeeds')?.value || ''
       };
+
+      // Phone validation (minimum 10 digits)
+      const digits = payload.phone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        alert('Please enter a valid 10-digit mobile number for admissions application.');
+        document.getElementById('admPhone')?.focus();
+        if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
+        return;
+      }
 
       try {
         const res = await fetch('/api/admissions/apply', {
@@ -400,7 +467,7 @@ function initCrayonBoxApp() {
           body: JSON.stringify(payload)
         });
         const d = await res.json();
-        if (d.success) {
+        if (d && d.success) {
           mainAdmissionForm.style.display = 'none';
           const p = mainAdmissionSuccess.querySelector('p');
           if (p) {
@@ -412,9 +479,13 @@ function initCrayonBoxApp() {
           }
           mainAdmissionSuccess.classList.add('show');
           mainAdmissionSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          alert('Submission error: ' + (d.error || 'Please check your inputs'));
+          if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
         }
       } catch (err) {
         console.error(err);
+        alert('We could not reach the server right now. Please message or call our admissions helpline directly at +91 98111 02008.');
         if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
       }
     });
@@ -431,8 +502,18 @@ function initCrayonBoxApp() {
       if (submitBtn) { submitBtn.innerHTML = 'Sending...'; submitBtn.disabled = true; }
 
       const parentName = document.getElementById('quickParentName')?.value || 'Parent';
-      const phone = document.getElementById('quickPhone')?.value || '';
+      const phoneInput = document.getElementById('quickPhone');
+      const phone = phoneInput?.value || '';
       const grade = document.getElementById('quickGrade')?.value || 'Nursery';
+
+      // Phone validation (minimum 10 digits)
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        alert('Please enter a valid 10-digit mobile number for callback.');
+        if (phoneInput) phoneInput.focus();
+        if (submitBtn) { submitBtn.innerHTML = origText; submitBtn.disabled = false; }
+        return;
+      }
 
       try {
         const res = await fetch('/api/admissions/apply', {
@@ -638,30 +719,6 @@ function initCrayonBoxApp() {
       });
     });
   });
-
-  // Campus Tour Form Submission
-  const campusTourForm = document.getElementById('campusTourForm');
-  if (campusTourForm) {
-    campusTourForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const submitBtn = campusTourForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.innerHTML : '';
-      if (submitBtn) {
-        submitBtn.innerHTML = '&#10003; Walkthrough Request Received!';
-        submitBtn.style.backgroundColor = '#2E8B57';
-        submitBtn.style.color = '#FFFFFF';
-      }
-      setTimeout(() => {
-        campusTourForm.reset();
-        if (submitBtn) {
-          submitBtn.innerHTML = originalText;
-          submitBtn.style.backgroundColor = '';
-          submitBtn.style.color = '';
-        }
-        closeAllModals();
-      }, 2500);
-    });
-  }
 
   /* ==========================================================================
      15. IN-PAGE 360° TOUR MODAL & FULLSCREEN HANDLERS
@@ -1209,20 +1266,85 @@ function initCrayonBoxApp() {
     });
   }
 
-  // Download notification feedback
+  // Authentic document export and download handler
   if (downloadDocBtns.length > 0) {
     downloadDocBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const docTitle = btn.getAttribute('data-doc-title') || 'Official Document';
+        const docAuthority = btn.getAttribute('data-doc-authority') || 'Crayon Box School Administrative Directorate';
+        const docRef = btn.getAttribute('data-doc-ref') || 'CBS/2026/OFFICIAL';
+        const docValid = btn.getAttribute('data-doc-valid') || 'Academic Session 2026-27';
+        const docText = btn.getAttribute('data-doc-text') || 'Official administrative and academic circular issued for the parents, guardians, and students of Crayon Box School, Burari, Delhi.';
+
         const origText = btn.innerHTML;
         btn.innerHTML = '⬇ Downloading...';
         btn.disabled = true;
+
+        const docContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${docTitle} - Crayon Box School</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 40px; color: #1e293b; line-height: 1.6; }
+    .header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 20px; margin-bottom: 24px; }
+    .header h1 { margin: 0 0 6px; font-size: 24px; color: #1e3a8a; text-transform: uppercase; letter-spacing: 1px; }
+    .header p { margin: 2px 0; font-size: 13px; color: #64748b; }
+    .title-box { background: #f8fafc; border-left: 4px solid #2563eb; padding: 16px; margin-bottom: 24px; }
+    .title-box h2 { margin: 0 0 6px; font-size: 18px; color: #0f172a; }
+    .meta-line { font-size: 12px; color: #64748b; font-weight: 600; }
+    .content-box { font-size: 15px; margin-bottom: 30px; line-height: 1.7; color: #334155; }
+    .seal-wrap { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding-top: 20px; border-top: 1px dashed #cbd5e1; }
+    .signature { text-align: center; font-size: 13px; color: #475569; }
+    .seal-badge { border: 2px solid #16a34a; color: #16a34a; font-size: 11px; font-weight: 800; padding: 10px 18px; border-radius: 8px; text-transform: uppercase; text-align: center; letter-spacing: 1px; }
+    @media print { body { margin: 20mm; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>The Crayon Box School</h1>
+    <p>6/20 D Block, Shastri Park Extension, Burari, Delhi – 110084</p>
+    <p>Directorate of Education ID: 1207236 | Affiliation Ref: 2730892 | Web: crayonboxschool.com</p>
+  </div>
+  <div class="title-box">
+    <h2>${docTitle}</h2>
+    <div class="meta-line">Issuing Authority: ${docAuthority} &bull; Ref: ${docRef} &bull; Validity: ${docValid}</div>
+  </div>
+  <div class="content-box">
+    ${docText}
+  </div>
+  <div class="seal-wrap">
+    <div class="signature">
+      <div style="font-weight: 700; color: #0f172a;">Dr. Sunita Mehra</div>
+      <div>Principal / Head of Institution</div>
+      <div>Crayon Box School, Burari</div>
+    </div>
+    <div class="seal-badge">
+      AUTHENTICATED<br>OFFICIAL RECORD<br>SESSION 2026–27
+    </div>
+  </div>
+</body>
+</html>`;
+
+        const blob = new Blob([docContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const cleanName = docTitle.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        a.download = `cbs_${cleanName}_2026.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
         setTimeout(() => {
-          btn.innerHTML = '✔ Saved (PDF)';
+          btn.innerHTML = '✔ Downloaded';
           setTimeout(() => {
             btn.innerHTML = origText;
             btn.disabled = false;
           }, 2500);
-        }, 800);
+        }, 500);
       });
     });
   }
@@ -1270,6 +1392,7 @@ function initCrayonBoxApp() {
     const activeBtn = document.querySelector('.news-filter-btn.active');
     const cat = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
     const query = newsSearchInput ? newsSearchInput.value.toLowerCase().trim() : '';
+    let visibleCount = 0;
 
     newsCards.forEach(card => {
       const cardCat = card.getAttribute('data-category') || '';
@@ -1280,10 +1403,27 @@ function initCrayonBoxApp() {
       if (matchesCat && matchesQuery) {
         card.style.display = '';
         card.classList.add('in-view');
+        visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    let emptyState = document.getElementById('newsEmptyState');
+    const newsGrid = document.querySelector('.news-cards-grid');
+    if (!emptyState && newsGrid) {
+      emptyState = document.createElement('div');
+      emptyState.id = 'newsEmptyState';
+      emptyState.style.gridColumn = '1 / -1';
+      emptyState.style.textAlign = 'center';
+      emptyState.style.padding = '48px 20px';
+      emptyState.style.color = '#64748B';
+      emptyState.innerHTML = '<div style="font-size: 2.2rem; margin-bottom: 8px;">🔍</div><strong style="color: var(--navy); font-size: 1.05rem;">No matching circulars or announcements found.</strong><p style="font-size: 0.88rem; margin-top: 6px;">Try adjusting your search terms or select "All Announcements".</p>';
+      newsGrid.appendChild(emptyState);
+    }
+    if (emptyState) {
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
   }
 
   if (newsFilterBtns.length > 0) {
@@ -1722,6 +1862,7 @@ function initCrayonBoxApp() {
     const activeBtn = document.querySelector('.alumni-filter-btn.active');
     const cat = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
     const query = alumniSearchInput ? alumniSearchInput.value.toLowerCase().trim() : '';
+    let visibleCount = 0;
 
     alumniCards.forEach(card => {
       const cardCat = card.getAttribute('data-category') || '';
@@ -1732,10 +1873,27 @@ function initCrayonBoxApp() {
       if (matchesCat && matchesQuery) {
         card.style.display = '';
         card.classList.add('in-view');
+        visibleCount++;
       } else {
         card.style.display = 'none';
       }
     });
+
+    let emptyState = document.getElementById('alumniEmptyState');
+    const alumniGrid = document.querySelector('.alumni-directory-grid');
+    if (!emptyState && alumniGrid) {
+      emptyState = document.createElement('div');
+      emptyState.id = 'alumniEmptyState';
+      emptyState.style.gridColumn = '1 / -1';
+      emptyState.style.textAlign = 'center';
+      emptyState.style.padding = '48px 20px';
+      emptyState.style.color = '#64748B';
+      emptyState.innerHTML = '<div style="font-size: 2.2rem; margin-bottom: 8px;">🎓</div><strong style="color: var(--navy); font-size: 1.05rem;">No alumni profiles found matching your search.</strong><p style="font-size: 0.88rem; margin-top: 6px;">Try adjusting your search terms or select "All Batches".</p>';
+      alumniGrid.appendChild(emptyState);
+    }
+    if (emptyState) {
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
   }
 
   if (alumniFilterBtns.length > 0) {
