@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node scratch/final_production_audit.js"
+    "test": "node scratch/test_audit_verification.js"
   },
   "keywords": [
     "school",

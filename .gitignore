@@ -40,3 +40,4 @@ school photos/
 scratch/
 archive_artifacts/
 *.log
+.orig_backup/

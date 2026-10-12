@@ -1042,7 +1042,7 @@ function initCrayonBoxApp() {
     const captionEl = item.querySelector('.gallery-card-caption');
 
     if (lightboxImg && imgEl) {
-      lightboxImg.src = imgEl.src;
+      lightboxImg.src = imgEl.currentSrc || imgEl.src;
       lightboxImg.alt = imgEl.alt || 'Gallery photo';
     }
     if (lightboxTitle && titleEl) lightboxTitle.textContent = titleEl.textContent;
